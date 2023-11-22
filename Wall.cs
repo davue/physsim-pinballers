@@ -23,36 +23,6 @@ public class Wall : DrawableGameComponent
     private Texture2D _wallTexture;
     private Texture2D _wallEndingTexture;
     
-    // Copied from https://stackoverflow.com/questions/2519304/draw-simple-circle-in-xna
-    private Texture2D CreateCircleTexture(int dia)
-    {
-        Texture2D texture = new Texture2D(GraphicsDevice, dia, dia);
-        Color[] colorData = new Color[dia*dia];
-
-        float r = dia / 2f;
-        float rSqr = r * r;
-
-        for (int x = 0; x < dia; x++)
-        {
-            for (int y = 0; y < dia; y++)
-            {
-                int index = x * dia + y;
-                Vector2 pos = new Vector2(x - r, y - r);
-                if (pos.LengthSquared() <= rSqr)
-                {
-                    colorData[index] = Color.White;
-                }
-                else
-                {
-                    colorData[index] = Color.Transparent;
-                }
-            }
-        }
-
-        texture.SetData(colorData);
-        return texture;
-    }
-    
     public Wall(PinballGame game, Vector2 start, Vector2 end, int radius) : base(game)
     {
         _radius = radius;
@@ -73,7 +43,7 @@ public class Wall : DrawableGameComponent
         _wallTexture.SetData(new[] { Color.White });
         
         // Create a circle texture for the wall ending to create a capsule shape
-        _wallEndingTexture = CreateCircleTexture(100);
+        _wallEndingTexture = Utils.CreateCircleTexture(GraphicsDevice, 100);
         
         // Calculate angle
         _angle = (float)Math.Atan(_direction.Y / _direction.X);
