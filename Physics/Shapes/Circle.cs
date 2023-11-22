@@ -9,18 +9,17 @@ public class Circle : Shape
 
     public Circle(Vector2 position, int radius)
     {
-        Type = ShapeType.Circle;
         Center = position;
         Radius = radius;
     }
 
     public override bool CheckCollision(Shape second)
     {
-        switch (second.Type)
+        switch (second)
         {
-            case ShapeType.Circle:
+            case Circle:
                 throw new System.NotImplementedException();
-            case ShapeType.Capsule:
+            case Capsule:
                 throw new System.NotImplementedException();
         }
 

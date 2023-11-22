@@ -7,6 +7,8 @@ namespace Pinballers;
 
 public class Ball : DynamicObject
 {
+    private Circle _circleShape;
+    
     // Ball attributes
     private int _radius;
 
@@ -15,12 +17,13 @@ public class Ball : DynamicObject
 
     public Ball(PinballGame game, Vector2 startPosition, int radius) : base(game, startPosition)
     {
+        _circleShape = new Circle(startPosition, radius);
         _radius = radius;
 
         _ballTexture = Utils.CreateCircleTexture(game.GraphicsDevice, 100);
 
         // Initialize Physics
-        InitPhysics(new Circle(startPosition, radius), ObjectType.Dynamic);
+        InitPhysics(_circleShape, ObjectType.Dynamic);
         Game.SimulatedObjects.Add(this);
     }
 

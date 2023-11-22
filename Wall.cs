@@ -14,9 +14,6 @@ public class Wall : SimulatedObject
     private readonly Vector2 _start;
     private readonly Vector2 _end;
     private int _radius;
-    private float _length;
-    private Vector2 _direction;
-    private Vector2 _normal;
     private float _angle;
     
     // Stuff for drawing
@@ -31,14 +28,8 @@ public class Wall : SimulatedObject
         _start = start;
         _end = end;
 
-        // Calculate direction vector and length
-        _direction = end - start;
-        _length = _direction.Length();
-        
-        // Copy direction vector and normalize it
-        _normal = new Vector2(_direction.X, _direction.Y);
-        _normal.Normalize();
-        
+        var capsule = new Capsule(_start, _end, _radius);
+
         // Create wall texture which is just a single white pixel
         _wallTexture = new Texture2D(game.GraphicsDevice, 1, 1);
         _wallTexture.SetData(new[] { Color.White });
@@ -47,13 +38,13 @@ public class Wall : SimulatedObject
         _wallEndingTexture = Utils.CreateCircleTexture(GraphicsDevice, 100);
         
         // Calculate angle
-        _angle = (float)Math.Atan(_direction.Y / _direction.X);
+        _angle = (float)Math.Atan(capsule.Direction.Y / capsule.Direction.X);
         
         // Create destination rectangle
-        _destRect = new Rectangle((int)start.X, (int)start.Y, (int)_length, _radius * 2);
+        _destRect = new Rectangle((int)start.X, (int)start.Y, (int)capsule.Length, _radius * 2);
         
         // Initialize physics
-        InitPhysics(new Capsule(_start, _end, _radius), ObjectType.Static);
+        InitPhysics(capsule, ObjectType.Static);
         _pinballGame.SimulatedObjects.Add(this);
     }
 
