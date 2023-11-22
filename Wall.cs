@@ -1,11 +1,12 @@
 ﻿using System;
-using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Pinballers.Physics;
+using Pinballers.Physics.Shapes;
 
 namespace Pinballers;
 
-public class Wall : DrawableGameComponent
+public class Wall : SimulatedObject
 {
     private readonly PinballGame _pinballGame;
     private readonly Vector2 _start;
@@ -50,18 +51,22 @@ public class Wall : DrawableGameComponent
         
         // Create destination rectangle
         _destRect = new Rectangle((int)start.X, (int)start.Y, (int)_length, _radius * 2);
+        
+        // Initialize physics
+        InitPhysics(new Capsule(_start, _end, _radius), ObjectType.Static);
+        _pinballGame.Simulator.SimulatedObjects.Add(this);
     }
 
     public override void Draw(GameTime gameTime)
     {
         // Draw rectangle part of capsule
-        _pinballGame.spriteBatch.Draw(_wallTexture, _destRect, null, Color.Black, _angle,
+        _pinballGame.SpriteBatch.Draw(_wallTexture, _destRect, null, Color.Black, _angle,
             new Vector2(0, 0.5f), SpriteEffects.None, 0);
         
         // Draw endings of capsule
-        _pinballGame.spriteBatch.Draw(_wallEndingTexture,
+        _pinballGame.SpriteBatch.Draw(_wallEndingTexture,
             new Rectangle((int)_start.X - _radius, (int)_start.Y - _radius, _radius * 2, _radius * 2), Color.Black);
-        _pinballGame.spriteBatch.Draw(_wallEndingTexture,
+        _pinballGame.SpriteBatch.Draw(_wallEndingTexture,
             new Rectangle((int)_end.X - _radius, (int)_end.Y - _radius, _radius * 2, _radius * 2), Color.Black);
     }
 }

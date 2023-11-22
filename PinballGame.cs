@@ -2,14 +2,15 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Pinballers.Physics;
 
 namespace Pinballers;
 
 public class PinballGame : Game
 {
     private GraphicsDeviceManager _graphics;
-    public SpriteBatch spriteBatch;
-    
+    public SpriteBatch SpriteBatch;
+    public Simulator Simulator;
     
     public PinballGame()
     {
@@ -24,6 +25,10 @@ public class PinballGame : Game
         _graphics.PreferredBackBufferHeight = 800;
         _graphics.ApplyChanges();
 
+        // Add Physics Simulator
+        Simulator = new Simulator(this);
+        Components.Add(Simulator);
+        
         // Create level walls
         Components.Add(new Wall(this, new Vector2(10, 10), new Vector2(10, 600), 5));
         Components.Add(new Wall(this, new Vector2(10, 600), new Vector2(100, 700), 5));
@@ -39,26 +44,27 @@ public class PinballGame : Game
 
     protected override void LoadContent()
     {
-        spriteBatch = new SpriteBatch(GraphicsDevice);
+        SpriteBatch = new SpriteBatch(GraphicsDevice);
     }
 
     protected override void Update(GameTime gameTime)
     {
+        // Close game on escape
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
-        var mouseState = Mouse.GetState();
-        Console.WriteLine(mouseState);
-
+        // Update everything else
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
+        // Set background color
         GraphicsDevice.Clear(Color.White);
 
-        spriteBatch.Begin();
+        // Use one SpriteBatch to draw everything
+        SpriteBatch.Begin();
         base.Draw(gameTime);
-        spriteBatch.End();
+        SpriteBatch.End();
     }
 }
