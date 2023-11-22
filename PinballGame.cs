@@ -9,8 +9,7 @@ public class PinballGame : Game
 {
     private GraphicsDeviceManager _graphics;
     public SpriteBatch spriteBatch;
-
-    private Wall _testWall;
+    
     
     public PinballGame()
     {
@@ -25,9 +24,15 @@ public class PinballGame : Game
         _graphics.PreferredBackBufferHeight = 800;
         _graphics.ApplyChanges();
 
-        // Create new wall and add it to components such that draw and update gets called automatically
-        _testWall = new Wall(this, new Vector2(10, 10), new Vector2(50, 100), 5);
-        Components.Add(_testWall);
+        // Create level walls
+        Components.Add(new Wall(this, new Vector2(10, 10), new Vector2(10, 600), 5));
+        Components.Add(new Wall(this, new Vector2(10, 600), new Vector2(100, 700), 5));
+        Components.Add(new Wall(this, new Vector2(100, 700), new Vector2(100, 790), 5));
+        Components.Add(new Wall(this, new Vector2(100, 790), new Vector2(300, 790), 5));
+        Components.Add(new Wall(this, new Vector2(300, 790), new Vector2(300, 700), 5));
+        Components.Add(new Wall(this, new Vector2(300, 700), new Vector2(390, 600), 5));
+        Components.Add(new Wall(this, new Vector2(390, 600), new Vector2(390, 10), 5));
+        Components.Add(new Wall(this, new Vector2(10, 10), new Vector2(390, 10), 5));
         
         base.Initialize();
     }
