@@ -23,6 +23,8 @@ public class Simulator : GameComponent
 
         foreach (var dynamicObject in SimulatedObjects)
         {
+            
+            
             if (dynamicObject.Type == ObjectType.Dynamic)
             {
                 foreach (var otherObject in SimulatedObjects)

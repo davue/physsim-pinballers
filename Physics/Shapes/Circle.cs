@@ -4,14 +4,14 @@ namespace Pinballers.Physics.Shapes;
 
 public class Circle : Shape
 {
-    private Vector2 _position;
-    private int _radius;
+    public Vector2 Center;
+    public int Radius;
 
     public Circle(Vector2 position, int radius)
     {
         Type = ShapeType.Circle;
-        _position = position;
-        _radius = radius;
+        Center = position;
+        Radius = radius;
     }
 
     public override bool CheckCollision(Shape second)

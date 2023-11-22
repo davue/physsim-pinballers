@@ -9,10 +9,10 @@ namespace Pinballers;
 public class Wall : SimulatedObject
 {
     private readonly PinballGame _pinballGame;
+    
+    // Wall attributes
     private readonly Vector2 _start;
     private readonly Vector2 _end;
-
-    // Wall attributes
     private int _radius;
     private float _length;
     private Vector2 _direction;
@@ -54,7 +54,7 @@ public class Wall : SimulatedObject
         
         // Initialize physics
         InitPhysics(new Capsule(_start, _end, _radius), ObjectType.Static);
-        _pinballGame.Simulator.SimulatedObjects.Add(this);
+        _pinballGame.SimulatedObjects.Add(this);
     }
 
     public override void Draw(GameTime gameTime)
