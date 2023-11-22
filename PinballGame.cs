@@ -9,6 +9,7 @@ namespace Pinballers;
 
 public class PinballGame : Game
 {
+    private const int TargetFrameRate = 144;
     private GraphicsDeviceManager _graphics;
     public SpriteBatch SpriteBatch;
     public List<SimulatedObject> SimulatedObjects = new();
@@ -23,9 +24,14 @@ public class PinballGame : Game
 
     protected override void Initialize()
     {
+        // Set window size
         _graphics.PreferredBackBufferWidth = 400;
         _graphics.PreferredBackBufferHeight = 800;
         _graphics.ApplyChanges();
+        
+        // Set target framerate
+        var temp = 1000d / TargetFrameRate * 10000d;
+        TargetElapsedTime = new TimeSpan((long)temp);
 
         // Create level walls
         Components.Add(new Wall(this, new Vector2(10, 10), new Vector2(10, 600), 10));
@@ -38,7 +44,7 @@ public class PinballGame : Game
         Components.Add(new Wall(this, new Vector2(10, 10), new Vector2(390, 10), 10));
 
         // Create ball
-        Components.Add(new Ball(this, new Vector2(60, 200), 15));
+        Components.Add(new Ball(this, new Vector2(20, 200), 15));
 
         base.Initialize();
     }
