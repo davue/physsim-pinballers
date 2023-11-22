@@ -8,7 +8,7 @@ namespace Pinballers;
 public class Ball : DynamicObject
 {
     private Circle _circleShape;
-    
+
     // Ball attributes
     private int _radius;
 
@@ -37,13 +37,24 @@ public class Ball : DynamicObject
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
-        
+
         foreach (var simulatedObject in Game.SimulatedObjects)
         {
             if (simulatedObject.Equals(this))
                 continue;
-            
+
             // Check for collisions
+            var collisionNormal = GetCollisionNormal(simulatedObject);
+            if (collisionNormal.HasValue)
+            {
+                // Set velocity to reflection vector
+                Velocity -= 2 * (Velocity * collisionNormal.Value) * collisionNormal.Value;
+                
+                // Clamp position
+                Center = Shape.GetClosestPointOnSurface(simulatedObject.Shape) + collisionNormal.Value * _radius;
+            }
         }
+        
+        _circleShape.Center = Center;
     }
 }

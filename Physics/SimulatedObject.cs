@@ -18,8 +18,8 @@ public class SimulatedObject : DrawableGameComponent
     {
     }
 
-    public bool CheckCollision(SimulatedObject second)
+    public Vector2? GetCollisionNormal(SimulatedObject second)
     {
-        return Shape.CheckCollision(second.Shape);
+        return Shape.GetCollisionNormal(second.Shape);
     }
 }

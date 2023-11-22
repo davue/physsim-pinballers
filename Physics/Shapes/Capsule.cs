@@ -7,7 +7,7 @@ public class Capsule : Shape
 {
     private Vector2 _start;
     private Vector2 _end;
-    private int _radius;
+    public int Radius;
     public readonly float Length;
     public Vector2 Direction;
     private Vector2 _normal;
@@ -16,7 +16,7 @@ public class Capsule : Shape
     {
         _start = start;
         _end = end;
-        _radius = radius;
+        Radius = radius;
 
         // Calculate direction vector and length
         Direction = end - start;
