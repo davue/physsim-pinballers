@@ -8,7 +8,7 @@ public class SimulatedObject : DrawableGameComponent
     public Shape Shape;
     public ObjectType Type;
 
-    public void InitPhysics(Shape shape, ObjectType objectType)
+    public virtual void InitPhysics(Shape shape, ObjectType objectType)
     {
         Shape = shape;
         Type = objectType;

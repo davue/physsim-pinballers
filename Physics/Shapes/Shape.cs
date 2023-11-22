@@ -8,4 +8,9 @@ public abstract class Shape
     {
         throw new NotImplementedException();
     }
+
+    public virtual double GetMass()
+    {
+        throw new NotImplementedException();
+    }
 }

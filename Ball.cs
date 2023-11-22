@@ -23,7 +23,7 @@ public class Ball : DynamicObject
         _ballTexture = Utils.CreateCircleTexture(game.GraphicsDevice, 100);
 
         // Initialize Physics
-        InitPhysics(_circleShape, ObjectType.Dynamic);
+        base.InitPhysics(_circleShape, ObjectType.Dynamic);
         Game.SimulatedObjects.Add(this);
     }
 
@@ -32,5 +32,18 @@ public class Ball : DynamicObject
         Game.SpriteBatch.Draw(_ballTexture,
             new Rectangle((int)Center.X - _radius, (int)Center.Y - _radius, _radius * 2, _radius * 2),
             Color.Red);
+    }
+
+    public override void Update(GameTime gameTime)
+    {
+        base.Update(gameTime);
+        
+        foreach (var simulatedObject in Game.SimulatedObjects)
+        {
+            if (simulatedObject.Equals(this))
+                continue;
+            
+            // Check for collisions
+        }
     }
 }

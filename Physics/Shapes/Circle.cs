@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 
 namespace Pinballers.Physics.Shapes;
 
@@ -24,5 +25,10 @@ public class Circle : Shape
         }
 
         return false;
+    }
+
+    public override double GetMass()
+    {
+        return Math.PI*Radius*Radius;
     }
 }
