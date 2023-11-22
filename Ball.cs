@@ -52,6 +52,7 @@ public class Ball : DynamicObject
                 
                 // Clamp position
                 Center = Shape.GetClosestPointOnSurface(simulatedObject.Shape) + collisionNormal.Value * _radius;
+                break;
             }
         }
         
