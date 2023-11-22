@@ -48,7 +48,7 @@ public class Ball : DynamicObject
             if (collisionNormal.HasValue)
             {
                 // Set velocity to reflection vector
-                Velocity -= 2 * (Velocity * collisionNormal.Value) * collisionNormal.Value;
+                Velocity -= 2 * Vector2.Dot(Velocity, collisionNormal.Value) * collisionNormal.Value;
                 
                 // Clamp position
                 Center = Shape.GetClosestPointOnSurface(simulatedObject.Shape) + collisionNormal.Value * _radius;

@@ -12,7 +12,7 @@ public class PinballGame : Game
     private GraphicsDeviceManager _graphics;
     public SpriteBatch SpriteBatch;
     public List<SimulatedObject> SimulatedObjects = new();
-    public Vector2 Gravity = new(0, 0.03f);
+    public Vector2 Gravity = new(0, 0.01f);
 
     public PinballGame()
     {
@@ -38,7 +38,7 @@ public class PinballGame : Game
         Components.Add(new Wall(this, new Vector2(10, 10), new Vector2(390, 10), 10));
 
         // Create ball
-        Components.Add(new Ball(this, new Vector2(300, 500), 15));
+        Components.Add(new Ball(this, new Vector2(60, 200), 15));
 
         base.Initialize();
     }
