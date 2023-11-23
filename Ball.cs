@@ -37,7 +37,9 @@ public class Ball : DynamicObject
 
     public override void Update(GameTime gameTime)
     {
-        var collide = false;
+        // Update gravity
+        base.Update(gameTime);
+
         foreach (var simulatedObject in Game.SimulatedObjects)
         {
             // Skip self-collision
@@ -46,7 +48,7 @@ public class Ball : DynamicObject
             // Check for collisions
             var collision = GetCollision(simulatedObject);
             if (collision == null) continue;
-            collide = true;
+            Game.DebugUtils.DrawFadingPoint(collision.Point, 5);
         
             // Set velocity to reflection vector
             Velocity -= 2 * Vector2.Dot(Velocity, collision.Normal) * collision.Normal;
@@ -56,9 +58,6 @@ public class Ball : DynamicObject
             Center = collision.Point + collision.Normal * _radius;
             break;
         }
-        
-        // Don't update gravity on collision
-        if (!collide) base.Update(gameTime);
         
         _circleShape.Center = Center;
     }
