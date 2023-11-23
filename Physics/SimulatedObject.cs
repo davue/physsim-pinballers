@@ -5,6 +5,7 @@ namespace Pinballers.Physics;
 
 public class SimulatedObject : DrawableGameComponent
 {
+    protected new readonly PinballGame Game;
     public Shape Shape;
     public ObjectType Type;
 
@@ -14,12 +15,21 @@ public class SimulatedObject : DrawableGameComponent
         Type = objectType;
     }
     
-    public SimulatedObject(Game game) : base(game)
+    public SimulatedObject(PinballGame game) : base(game)
     {
+        Game = game;
+        Game.SimulatedObjects.Add(this);
     }
 
     public Collision GetCollision(SimulatedObject second)
     {
         return Shape.GetCollision(second.Shape);
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        Game.SimulatedObjects.Remove(this);
+        Game.Components.Remove(this);
+        base.Dispose(disposing);
     }
 }

@@ -45,7 +45,6 @@ public class Wall : SimulatedObject
         
         // Initialize physics
         InitPhysics(capsule, ObjectType.Static);
-        _pinballGame.SimulatedObjects.Add(this);
     }
 
     public override void Draw(GameTime gameTime)

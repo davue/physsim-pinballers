@@ -5,8 +5,6 @@ namespace Pinballers.Physics;
 
 public class DynamicObject : SimulatedObject
 {
-    protected new readonly PinballGame Game;
-
     public Vector2 Center;
     public Vector2 Velocity = Vector2.Zero;
     public double Mass;
@@ -14,7 +12,6 @@ public class DynamicObject : SimulatedObject
 
     public DynamicObject(PinballGame game, Vector2 center) : base(game)
     {
-        Game = game;
         Center = center;
     }
 
