@@ -2,5 +2,5 @@
 
 public enum ObjectType
 {
-    Static, Dynamic
+    Static, Dynamic, Anchored
 }

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Pinballers.Physics;
+using Pinballers.Physics.Shapes;
 
 namespace Pinballers;
 
@@ -45,6 +46,8 @@ public class PinballGame : Game
 
         // Create ball
         Components.Add(new Ball(this, new Vector2(20, 200), 15));
+
+        Components.Add(new Flipper(this, new Vector2(110, 700), new Vector2(150, 650), 15, -10));
 
         base.Initialize();
     }

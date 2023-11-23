@@ -34,4 +34,9 @@ public class Capsule : Shape
 
         return _start + t * Direction;
     }
+
+    public override double GetMass()
+    {
+        return Math.PI * Radius * Radius + Radius * Length;
+    }
 }
