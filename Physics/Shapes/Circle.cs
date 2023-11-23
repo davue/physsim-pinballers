@@ -14,20 +14,7 @@ public class Circle : Shape
         Radius = radius;
     }
 
-    public override bool CheckCollision(Shape second)
-    {
-        switch (second)
-        {
-            case Circle:
-                throw new System.NotImplementedException();
-            case Capsule:
-                throw new System.NotImplementedException();
-        }
-
-        return false;
-    }
-    
-    public override Vector2? GetCollisionNormal(Shape second)
+    public override Collision GetCollision(Shape second)
     {
         switch (second)
         {
@@ -36,11 +23,12 @@ public class Circle : Shape
             case Capsule:
                 var capsule = (Capsule)second;
                 var closestPoint = capsule.GetClosestPointTo(Center);
-                var distance = Center - closestPoint;
-                if (distance.Length() < Radius + capsule.Radius)
+                var distanceVector = Center - closestPoint;
+                var distance = distanceVector.Length() - capsule.Radius;
+                if (distance < Radius)
                 {
-                    distance.Normalize();
-                    return distance;
+                    distanceVector.Normalize();
+                    return new Collision(distanceVector, closestPoint + distanceVector * capsule.Radius, distance);
                 }
                 break;
         }
@@ -48,25 +36,8 @@ public class Circle : Shape
         return null;
     }
 
-    public override Vector2 GetClosestPointOnSurface(Shape second)
-    {
-        switch (second)
-        {
-            case Circle:
-                throw new System.NotImplementedException();
-            case Capsule:
-                var capsule = (Capsule)second;
-                var closestPoint = capsule.GetClosestPointTo(Center);
-                var distance = (Center - closestPoint);
-                distance.Normalize();
-                return closestPoint + distance * capsule.Radius;
-            default:
-                throw new System.NotImplementedException();
-        }
-    }
-
     public override double GetMass()
     {
-        return Math.PI*Radius*Radius;
+        return Math.PI * Radius * Radius;
     }
 }

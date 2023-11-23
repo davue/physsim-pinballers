@@ -25,6 +25,7 @@ public class Ball : DynamicObject
         // Initialize Physics
         base.InitPhysics(_circleShape, ObjectType.Dynamic);
         Game.SimulatedObjects.Add(this);
+        Restitution = 0.9f;
     }
 
     public override void Draw(GameTime gameTime)
@@ -36,25 +37,28 @@ public class Ball : DynamicObject
 
     public override void Update(GameTime gameTime)
     {
-        base.Update(gameTime);
-
+        var collide = false;
         foreach (var simulatedObject in Game.SimulatedObjects)
         {
-            if (simulatedObject.Equals(this))
-                continue;
+            // Skip self-collision
+            if (simulatedObject.Equals(this)) continue;
 
             // Check for collisions
-            var collisionNormal = GetCollisionNormal(simulatedObject);
-            if (collisionNormal.HasValue)
-            {
-                // Set velocity to reflection vector
-                Velocity -= 2 * Vector2.Dot(Velocity, collisionNormal.Value) * collisionNormal.Value;
+            var collision = GetCollision(simulatedObject);
+            if (collision == null) continue;
+            collide = true;
+        
+            // Set velocity to reflection vector
+            Velocity -= 2 * Vector2.Dot(Velocity, collision.Normal) * collision.Normal;
+            Velocity *= Restitution;
                 
-                // Clamp position
-                Center = Shape.GetClosestPointOnSurface(simulatedObject.Shape) + collisionNormal.Value * _radius;
-                break;
-            }
+            // Clamp position
+            Center = collision.Point + collision.Normal * _radius;
+            break;
         }
+        
+        // Don't update gravity on collision
+        if (!collide) base.Update(gameTime);
         
         _circleShape.Center = Center;
     }

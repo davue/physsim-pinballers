@@ -34,14 +34,14 @@ public class PinballGame : Game
         TargetElapsedTime = new TimeSpan((long)temp);
 
         // Create level walls
-        Components.Add(new Wall(this, new Vector2(10, 10), new Vector2(10, 600), 10));
-        Components.Add(new Wall(this, new Vector2(10, 600), new Vector2(100, 700), 10));
-        Components.Add(new Wall(this, new Vector2(100, 700), new Vector2(100, 790), 10));
-        Components.Add(new Wall(this, new Vector2(100, 790), new Vector2(300, 790), 10));
-        Components.Add(new Wall(this, new Vector2(300, 790), new Vector2(300, 700), 10));
-        Components.Add(new Wall(this, new Vector2(300, 700), new Vector2(390, 600), 10));
-        Components.Add(new Wall(this, new Vector2(390, 600), new Vector2(390, 10), 10));
-        Components.Add(new Wall(this, new Vector2(10, 10), new Vector2(390, 10), 10));
+        Components.Add(new Wall(this, new Vector2(10, 10), new Vector2(10, 600), 5));
+        Components.Add(new Wall(this, new Vector2(10, 600), new Vector2(100, 700), 5));
+        Components.Add(new Wall(this, new Vector2(100, 700), new Vector2(100, 790), 5));
+        Components.Add(new Wall(this, new Vector2(100, 790), new Vector2(300, 790), 5));
+        Components.Add(new Wall(this, new Vector2(300, 790), new Vector2(300, 700), 5));
+        Components.Add(new Wall(this, new Vector2(300, 700), new Vector2(390, 600), 5));
+        Components.Add(new Wall(this, new Vector2(390, 600), new Vector2(390, 10), 5));
+        Components.Add(new Wall(this, new Vector2(10, 10), new Vector2(390, 10), 5));
 
         // Create ball
         Components.Add(new Ball(this, new Vector2(20, 200), 15));

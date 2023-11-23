@@ -27,19 +27,6 @@ public class Capsule : Shape
         _normal.Normalize();
     }
 
-    public override bool CheckCollision(Shape second)
-    {
-        switch (second)
-        {
-            case Circle:
-                throw new System.NotImplementedException();
-            case Capsule:
-                throw new System.NotImplementedException();
-        }
-
-        return false;
-    }
-
     public Vector2 GetClosestPointTo(Vector2 p)
     {
         float t = Vector2.Dot(p - _start, Direction) / Vector2.Dot(Direction, Direction);
