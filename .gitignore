@@ -35,8 +35,5 @@ obj/
 [Rr]elease*/
 Ankh.NoLoad
 
-# Dotnet tools
-.config
-
 # Jetbrains
 .idea
