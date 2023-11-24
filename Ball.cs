@@ -49,7 +49,8 @@ public class Ball : DynamicObject
             // Check for collisions
             var collision = GetCollision(simulatedObject);
             if (collision == null) continue;
-            Game.DebugUtils.DrawFadingPoint(collision.Point, 4);
+            Game.DebugUtils.AddFadingPoint(collision.Point, 4);
+            Game.DebugUtils.AddFadingVector(collision.Point, collision.Normal, 30);
             
             // Set velocity to reflection vector
             Velocity -= 2 * Vector2.Dot(Velocity, collision.Normal) * collision.Normal;
