@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Linq;
 
 namespace Pinballers;
 
@@ -31,6 +32,15 @@ public class Utils
                 }
             }
         }
+
+        texture.SetData(colorData);
+        return texture;
+    }
+    
+    public static Texture2D CreateRectangleTexture(GraphicsDevice graphicsDevice, int width, int height)
+    {
+        Texture2D texture = new Texture2D(graphicsDevice, width, height);
+        Color[] colorData = Enumerable.Repeat(Color.White, width * height).ToArray();
 
         texture.SetData(colorData);
         return texture;
