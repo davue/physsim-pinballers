@@ -54,7 +54,8 @@ public class PinballGame : Game
         Components.Add(new Wall(this, new Vector2(10, 10), new Vector2(390, 10), 5));
 
         // Create ball
-        Components.Add(new Ball(this, new Vector2(20, 200), 15));
+        _ball = new Ball(this, new Vector2(20, 200), 15);
+        Components.Add(_ball);
 
         // Initialize Debug Utils
         DebugUtils = new DebugUtils(this);

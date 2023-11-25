@@ -35,10 +35,10 @@ public class Ball : DynamicObject
         // Update gravity
         base.Update(gameTime);
 
+        _circleShape.Center = Center;
+
         foreach (var simulatedObject in Game.SimulatedObjects)
         {
-            _circleShape.Center = Center;
-
             // Skip self-collision
             if (simulatedObject.Equals(this)) continue;
 
