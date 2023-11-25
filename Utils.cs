@@ -37,10 +37,10 @@ public class Utils
         return texture;
     }
     
-    public static Texture2D CreateRectangleTexture(GraphicsDevice graphicsDevice, int width, int height)
+    public static Texture2D CreatePointTexture(GraphicsDevice graphicsDevice)
     {
-        Texture2D texture = new Texture2D(graphicsDevice, width, height);
-        Color[] colorData = Enumerable.Repeat(Color.White, width * height).ToArray();
+        Texture2D texture = new Texture2D(graphicsDevice, 1, 1);
+        Color[] colorData = new[] { Color.White };
 
         texture.SetData(colorData);
         return texture;

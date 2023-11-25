@@ -32,8 +32,7 @@ public class FadingVector : DrawableGameComponent
         _start = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         _end = _start + duration;
 
-        _lineTexture = new Texture2D(game.GraphicsDevice, 1, 1);
-        _lineTexture.SetData(new[] { Color.White });
+        _lineTexture = Utils.CreatePointTexture(game.GraphicsDevice);
 
         _destRect = new Rectangle((int)origin.X, (int)origin.Y - LineWidth / 2, (int)(direction.Length() * scale),
             LineWidth);

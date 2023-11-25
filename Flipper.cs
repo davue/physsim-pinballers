@@ -21,7 +21,7 @@ public class Flipper : AnchoredObject
         float length = (endPosition - startPosition).Length();
 
         _ballTexture = Utils.CreateCircleTexture(game.GraphicsDevice, 100);
-        _rectangleTexture = Utils.CreateRectangleTexture(game.GraphicsDevice, (int) length, radius);
+        _rectangleTexture = Utils.CreatePointTexture(game.GraphicsDevice);
 
         // Initialize Physics
         base.InitPhysics(_shape, ObjectType.Anchored);
