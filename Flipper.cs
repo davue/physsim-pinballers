@@ -31,15 +31,7 @@ public class Flipper : AnchoredObject
     {
         Game.SpriteBatch.DrawCentered(_ballTexture, Center, _shape.Radius, Color.Red);
 
-        Game.SpriteBatch.Draw(_rectangleTexture,
-            Center,
-            new Rectangle((int)Center.X, (int)Center.Y, (int)_shape.Length, _shape.Radius * 2),
-            Color.Red,
-            Angle,
-            new Vector2(0, _shape.Radius),
-            1,
-            SpriteEffects.None,
-            1);
+        Game.SpriteBatch.DrawRotating(_rectangleTexture, Center, (int)_shape.Length, _shape.Radius, Angle, Color.Red);
 
         Game.SpriteBatch.DrawCentered(_ballTexture, EndPosition, _shape.Radius, Color.Red);
     }
