@@ -8,24 +8,33 @@ namespace Pinballers.Physics
     {
         protected new readonly PinballGame Game;
 
-        public readonly float Length;
-        public readonly float RestAngle;
-        public readonly float MaxRotation;
-        public readonly int Sign;
-
-        public Vector2 Center;
-        public float AngularVelocity = 0.001f;
-        public float CurrentAngularVelocity = 0;
-        public float TouchIdentifier = 1;
-        public double Mass;
-
-        public float Rotation = 0;
+        public Vector2 Center { get; }
+        public float Length { get; }
+        public float CurrentAngularVelocity { get; private set; }
+        public double Mass { get; private set; }
         public float Angle => RestAngle + Sign * Rotation;
         public Vector2 EndPosition => Center + Utils.ToCartesian(Length, Angle);
 
-        public AnchoredObject(PinballGame game, Vector2 center, Vector2 direction, float maxRotation) : this(game, center, direction.Length(), Utils.Angle(direction), maxRotation) { }
+        private readonly float RestAngle;
+        private readonly float MaxRotation;
+        private readonly int Sign;
 
-        public AnchoredObject(PinballGame game, Vector2 center, float length, float restAngle, float maxRotation) : base(game)
+        private float AngularVelocity = 0.001f;
+        public float TouchIdentifier = 1;
+        private float Rotation = 0;
+
+        public AnchoredObject(
+            PinballGame game,
+            Vector2 center,
+            Vector2 direction,
+            float maxRotation) : this(game, center, direction.Length(), Utils.Angle(direction), maxRotation) { }
+
+        public AnchoredObject(
+            PinballGame game,
+            Vector2 center,
+            float length,
+            float restAngle,
+            float maxRotation) : base(game)
         {
             Game = game;
             Center = center;

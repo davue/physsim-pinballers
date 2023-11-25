@@ -8,10 +8,7 @@ namespace Pinballers;
 
 public class Flipper : AnchoredObject
 {
-    private Capsule _capsuleShape;
-
-    // Ball attributes
-    private int _radius;
+    private Capsule _shape;
 
     // Stuff for drawing
     private Texture2D _ballTexture;
@@ -19,31 +16,36 @@ public class Flipper : AnchoredObject
 
     public Flipper(PinballGame game, Vector2 startPosition, Vector2 endPosition, int radius, float maxRotation) : base(game, startPosition, endPosition - startPosition, maxRotation)
     {
-        _capsuleShape = new Capsule(startPosition, endPosition, radius);
-        _radius = radius;
+        _shape = new Capsule(startPosition, endPosition, radius);
         
         float length = (endPosition - startPosition).Length();
 
-        _ballTexture = Utils.CreateCircleTexture(game.GraphicsDevice, radius);
+        _ballTexture = Utils.CreateCircleTexture(game.GraphicsDevice, 100);
         _rectangleTexture = Utils.CreateRectangleTexture(game.GraphicsDevice, (int) length, radius);
 
         // Initialize Physics
-        base.InitPhysics(_capsuleShape, ObjectType.Anchored);
+        base.InitPhysics(_shape, ObjectType.Anchored);
         Game.SimulatedObjects.Add(this);
     }
 
     public override void Draw(GameTime gameTime)
     {
         Game.SpriteBatch.Draw(_ballTexture,
-            new Rectangle((int)Center.X, (int)Center.Y, _radius * 2, _radius * 2),
+            new Rectangle((int)Center.X - _shape.Radius, (int)Center.Y - _shape.Radius, _shape.Radius * 2, _shape.Radius * 2),
             Color.Red);
-        
-        /* Game.SpriteBatch.Draw(_rectangleTexture,
-            new Vector2(Center.X, Center.Y), null,
-            Color.Red, Angle, Vector2.Zero, 1, ); */
+
+        Game.SpriteBatch.Draw(_rectangleTexture,
+            Center,
+            new Rectangle((int)Center.X, (int)Center.Y, (int)_shape.Length, _shape.Radius * 2),
+            Color.Red,
+            Angle,
+            new Vector2(0, _shape.Radius),
+            1,
+            SpriteEffects.None,
+            1);
 
         Game.SpriteBatch.Draw(_ballTexture,
-            new Rectangle((int)EndPosition.X, (int)EndPosition.Y, _radius * 2, _radius * 2),
+            new Rectangle((int)EndPosition.X - _shape.Radius, (int)EndPosition.Y - _shape.Radius, _shape.Radius * 2, _shape.Radius * 2),
             Color.Red);
     }
 
