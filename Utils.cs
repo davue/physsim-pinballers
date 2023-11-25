@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Linq;
 
 namespace Pinballers;
 
@@ -36,7 +35,7 @@ public class Utils
         texture.SetData(colorData);
         return texture;
     }
-    
+
     public static Texture2D CreatePointTexture(GraphicsDevice graphicsDevice)
     {
         Texture2D texture = new Texture2D(graphicsDevice, 1, 1);
@@ -45,9 +44,6 @@ public class Utils
         texture.SetData(colorData);
         return texture;
     }
-
-    public static float Angle(Vector2 v)
-        => (float)Math.Acos(v.X / v.Length());
 
     public static Vector2 ToCartesian(float r, float theta)
     {
