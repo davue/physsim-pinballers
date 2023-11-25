@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using Pinballers.Physics;
 using Pinballers.Physics.Shapes;
-using System;
 
 namespace Pinballers;
 
@@ -11,14 +10,12 @@ public class Flipper : AnchoredObject
     private Capsule _shape;
 
     // Stuff for drawing
-    private Texture2D _ballTexture;
-    private Texture2D _rectangleTexture;
+    private readonly Texture2D _ballTexture;
+    private readonly Texture2D _rectangleTexture;
 
-    public Flipper(PinballGame game, Vector2 startPosition, Vector2 endPosition, int radius, float maxRotation) : base(game, startPosition, endPosition - startPosition, maxRotation)
+    public Flipper(PinballGame game, Vector2 startPosition, int radius, int length, float restAngle, float maxRotation) : base(game, startPosition, length, restAngle, maxRotation)
     {
-        _shape = new Capsule(startPosition, endPosition, radius);
-        
-        float length = (endPosition - startPosition).Length();
+        _shape = new Capsule(startPosition, EndPosition, radius);
 
         _ballTexture = Utils.CreateCircleTexture(game.GraphicsDevice, 100);
         _rectangleTexture = Utils.CreatePointTexture(game.GraphicsDevice);

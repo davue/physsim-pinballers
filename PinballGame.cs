@@ -64,7 +64,7 @@ public class PinballGame : Game
         _lastMouseState = Mouse.GetState();
 
         // Create flipper
-        Components.Add(new Flipper(this, new Vector2(110, 700), new Vector2(150, 650), 15, -10));
+        Components.Add(new Flipper(this, new Vector2(110, 700), 15, 50, (float)(Math.PI / 4), (float) (- Math.PI / 2)));
 
         base.Initialize();
     }
