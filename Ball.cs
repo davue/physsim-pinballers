@@ -24,7 +24,6 @@ public class Ball : DynamicObject
 
         // Initialize Physics
         base.InitPhysics(_circleShape, ObjectType.Dynamic);
-        Game.SimulatedObjects.Add(this);
         Restitution = 0.9f;
     }
 
@@ -37,29 +36,29 @@ public class Ball : DynamicObject
 
     public override void Update(GameTime gameTime)
     {
-        var collide = false;
+        // Update gravity
+        base.Update(gameTime);
+
         foreach (var simulatedObject in Game.SimulatedObjects)
         {
+            _circleShape.Center = Center;
+            
             // Skip self-collision
             if (simulatedObject.Equals(this)) continue;
 
             // Check for collisions
             var collision = GetCollision(simulatedObject);
             if (collision == null) continue;
-            collide = true;
-        
+            Game.DebugUtils.AddFadingPoint(collision.Point, 4);
+            Game.DebugUtils.AddFadingVector(collision.Point, collision.Normal, 30);
+            
             // Set velocity to reflection vector
             Velocity -= 2 * Vector2.Dot(Velocity, collision.Normal) * collision.Normal;
             Velocity *= Restitution;
-                
-            // Clamp position
+            
+            // Push out ball
             Center = collision.Point + collision.Normal * _radius;
-            break;
+            _circleShape.Center = Center;
         }
-        
-        // Don't update gravity on collision
-        if (!collide) base.Update(gameTime);
-        
-        _circleShape.Center = Center;
     }
 }

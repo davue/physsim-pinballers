@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Pinballers.Helpers;
 using Pinballers.Physics;
 using Pinballers.Physics.Shapes;
 
@@ -10,11 +11,19 @@ namespace Pinballers;
 
 public class PinballGame : Game
 {
+    // Framework fields
     private const int TargetFrameRate = 144;
     private GraphicsDeviceManager _graphics;
     public SpriteBatch SpriteBatch;
+    
+    // Simulation fields
     public List<SimulatedObject> SimulatedObjects = new();
-    public Vector2 Gravity = new(0, 0.01f);
+    public Vector2 Gravity = new(0, 0.005f);
+    private Ball _ball;
+
+    // Other
+    public DebugUtils DebugUtils;
+    private MouseState _lastMouseState;
 
     public PinballGame()
     {
@@ -47,6 +56,13 @@ public class PinballGame : Game
         // Create ball
         Components.Add(new Ball(this, new Vector2(20, 200), 15));
 
+        // Initialize Debug Utils
+        DebugUtils = new DebugUtils(this);
+
+        // Initialize mouse state
+        _lastMouseState = Mouse.GetState();
+
+        // Create flipper
         Components.Add(new Flipper(this, new Vector2(110, 700), new Vector2(150, 650), 15, -10));
 
         base.Initialize();
@@ -63,6 +79,16 @@ public class PinballGame : Game
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
             Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
+        
+        // Create new ball at mouse position on click
+        var currentMouseState = Mouse.GetState();
+        if (_lastMouseState.LeftButton == ButtonState.Released && currentMouseState.LeftButton == ButtonState.Pressed)
+        {
+            _ball.Dispose();
+            _ball = new Ball(this, currentMouseState.Position.ToVector2(), 15);
+            Components.Add(_ball);
+        }
+        _lastMouseState = currentMouseState;
 
         // Update everything else
         base.Update(gameTime);
