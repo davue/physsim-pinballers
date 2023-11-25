@@ -25,7 +25,6 @@ public class Flipper : AnchoredObject
 
         // Initialize Physics
         base.InitPhysics(_shape, ObjectType.Anchored);
-        Game.SimulatedObjects.Add(this);
     }
 
     public override void Draw(GameTime gameTime)
@@ -49,8 +48,5 @@ public class Flipper : AnchoredObject
             Color.Red);
     }
 
-    public override void Update(GameTime gameTime)
-    {
-        base.Update(gameTime);
-    }
+    public override void Update(GameTime gameTime) => base.Update(gameTime);
 }

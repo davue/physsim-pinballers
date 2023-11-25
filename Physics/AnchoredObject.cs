@@ -6,8 +6,6 @@ namespace Pinballers.Physics
 {
     public class AnchoredObject : SimulatedObject
     {
-        protected new readonly PinballGame Game;
-
         public Vector2 Center { get; }
         public float Length { get; }
         public float CurrentAngularVelocity { get; private set; }
@@ -36,7 +34,6 @@ namespace Pinballers.Physics
             float restAngle,
             float maxRotation) : base(game)
         {
-            Game = game;
             Center = center;
             Length = length;
             RestAngle = restAngle;
