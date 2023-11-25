@@ -29,9 +29,7 @@ public class Flipper : AnchoredObject
 
     public override void Draw(GameTime gameTime)
     {
-        Game.SpriteBatch.Draw(_ballTexture,
-            new Rectangle((int)Center.X - _shape.Radius, (int)Center.Y - _shape.Radius, _shape.Radius * 2, _shape.Radius * 2),
-            Color.Red);
+        Game.SpriteBatch.DrawCentered(_ballTexture, Center, _shape.Radius, Color.Red);
 
         Game.SpriteBatch.Draw(_rectangleTexture,
             Center,
@@ -43,9 +41,7 @@ public class Flipper : AnchoredObject
             SpriteEffects.None,
             1);
 
-        Game.SpriteBatch.Draw(_ballTexture,
-            new Rectangle((int)EndPosition.X - _shape.Radius, (int)EndPosition.Y - _shape.Radius, _shape.Radius * 2, _shape.Radius * 2),
-            Color.Red);
+        Game.SpriteBatch.DrawCentered(_ballTexture, EndPosition, _shape.Radius, Color.Red);
     }
 
     public override void Update(GameTime gameTime) => base.Update(gameTime);
