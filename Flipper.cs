@@ -36,5 +36,10 @@ public class Flipper : AnchoredObject
         Game.SpriteBatch.DrawCentered(_ballTexture, EndPosition, _shape.Radius, Color.Red);
     }
 
-    public override void Update(GameTime gameTime) => base.Update(gameTime);
+    public override void Update(GameTime gameTime)
+    {
+        base.Update(gameTime);
+
+        _shape.End = EndPosition;
+    }
 }

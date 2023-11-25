@@ -19,7 +19,7 @@ public class Circle : Shape
         switch (second)
         {
             case Circle:
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             case Capsule:
                 var capsule = (Capsule)second;
                 var closestPoint = capsule.GetClosestPointTo(Center);
