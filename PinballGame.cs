@@ -20,6 +20,8 @@ public class PinballGame : Game
     public List<SimulatedObject> SimulatedObjects = new();
     public Vector2 Gravity = new(0, 0.005f);
     private Ball _ball;
+    private Flipper _leftFlipper;
+    private Flipper _rightFlipper;
 
     // Other
     public DebugUtils DebugUtils;
@@ -64,8 +66,11 @@ public class PinballGame : Game
         _lastMouseState = Mouse.GetState();
 
         // Create flipper
-        Components.Add(new Flipper(this, new Vector2(100, 655), 10, 60, (float)(Math.PI / 4), (float)(- Math.PI / 2)));
-        Components.Add(new Flipper(this, new Vector2(300, 655), 10, 60, 3*(float)(Math.PI / 4), (float)(Math.PI / 2)));
+        _leftFlipper = new Flipper(this, new Vector2(100, 655), 10, 60, (float)(Math.PI / 4), (float)(-Math.PI / 2));
+        _rightFlipper = new Flipper(this, new Vector2(300, 655), 10, 60, 3 * (float)(Math.PI / 4),
+            (float)(Math.PI / 2));
+        Components.Add(_leftFlipper);
+        Components.Add(_rightFlipper);
 
         base.Initialize();
     }
@@ -78,8 +83,9 @@ public class PinballGame : Game
     protected override void Update(GameTime gameTime)
     {
         // Close game on escape
+        var keyboardState = Keyboard.GetState();
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
-            Keyboard.GetState().IsKeyDown(Keys.Escape))
+            keyboardState.IsKeyDown(Keys.Escape))
             Exit();
         
         // Create new ball at mouse position on click
@@ -91,6 +97,24 @@ public class PinballGame : Game
             Components.Add(_ball);
         }
         _lastMouseState = currentMouseState;
+        
+        // Flipper controls
+        if (keyboardState.IsKeyDown(Keys.Left) || keyboardState.IsKeyDown(Keys.A))
+        {
+            _leftFlipper.TouchIdentifier = 1;
+        }
+        else
+        {
+            _leftFlipper.TouchIdentifier = -1;
+        }
+        if (keyboardState.IsKeyDown(Keys.Right) || keyboardState.IsKeyDown(Keys.D))
+        {
+            _rightFlipper.TouchIdentifier = 1;
+        }
+        else
+        {
+            _rightFlipper.TouchIdentifier = -1;
+        }
 
         // Update everything else
         base.Update(gameTime);
