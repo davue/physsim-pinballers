@@ -1,5 +1,5 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using System;
 
 namespace Pinballers.Physics.Shapes;
 
@@ -20,17 +20,30 @@ public class Circle : Shape
         {
             case Circle:
                 throw new NotImplementedException();
-            case Capsule:
-                var capsule = (Capsule)second;
-                var closestPoint = capsule.GetClosestPointTo(Center);
-                var distanceVector = Center - closestPoint;
-                var distance = distanceVector.Length() - capsule.Radius;
-                if (distance < Radius)
-                {
-                    distanceVector.Normalize();
-                    return new Collision(distanceVector, closestPoint + distanceVector * capsule.Radius, distance);
-                }
-                break;
+            case Capsule capsule:
+                return CollideWithLine(capsule);
+            case Line line:
+                var collision = CollideWithLine(line);
+                if (collision == null)
+                    return null;
+
+                Vector2 normal = line.Difference.Perp();
+                float sign = -Math.Sign(Vector2.Dot(collision.Normal, normal));
+                return new Collision(sign * collision.Normal, collision.Point, collision.Distance);
+        }
+
+        return null;
+    }
+
+    private Collision CollideWithLine(ILine line)
+    {
+        var closestPoint = line.GetClosestPointTo(Center);
+        var distanceVector = Center - closestPoint;
+        var distance = distanceVector.Length() - line.Radius;
+        if (distance < Radius)
+        {
+            distanceVector.Normalize();
+            return new Collision(distanceVector, closestPoint + distanceVector * line.Radius, distance);
         }
 
         return null;
