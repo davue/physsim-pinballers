@@ -28,7 +28,7 @@ public class Wall : BarObject
         _wallEndingTexture = Utils.CreateCircleTexture(GraphicsDevice, 100);
 
         // Calculate angle
-        _angle = (float)Math.Atan(_line.Direction.Y / _line.Direction.X);
+        _angle = (float)Math.Atan2(_line.Direction.Y, _line.Direction.X);
 
         // Initialize physics
         InitPhysics(_line, ObjectType.Static);
