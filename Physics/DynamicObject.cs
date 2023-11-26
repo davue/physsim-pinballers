@@ -17,8 +17,8 @@ public class DynamicObject : SimulatedObject
 
     public override void Update(GameTime gameTime)
     {
-        Center += Velocity * gameTime.ElapsedGameTime.Milliseconds;
         Velocity += Game.Gravity * gameTime.ElapsedGameTime.Milliseconds;
+        Center += Velocity * gameTime.ElapsedGameTime.Milliseconds;
     }
 
     public override void InitPhysics(Shape shape, ObjectType objectType)
