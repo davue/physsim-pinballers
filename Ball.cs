@@ -28,21 +28,17 @@ public class Ball : DynamicObject
     }
 
     public override void Draw(GameTime gameTime)
-    {
-        Game.SpriteBatch.Draw(_ballTexture,
-            new Rectangle((int)Center.X - _radius, (int)Center.Y - _radius, _radius * 2, _radius * 2),
-            Color.Red);
-    }
+        => Game.SpriteBatch.DrawCentered(_ballTexture, Center, _radius, Color.Red);
 
     public override void Update(GameTime gameTime)
     {
         // Update gravity
         base.Update(gameTime);
 
+        _circleShape.Center = Center;
+
         foreach (var simulatedObject in Game.SimulatedObjects)
         {
-            _circleShape.Center = Center;
-            
             // Skip self-collision
             if (simulatedObject.Equals(this)) continue;
 
@@ -51,11 +47,11 @@ public class Ball : DynamicObject
             if (collision == null) continue;
             Game.DebugUtils.AddFadingPoint(collision.Point, 4);
             Game.DebugUtils.AddFadingVector(collision.Point, collision.Normal, 30);
-            
+
             // Set velocity to reflection vector
             Velocity -= 2 * Vector2.Dot(Velocity, collision.Normal) * collision.Normal;
             Velocity *= Restitution;
-            
+
             // Push out ball
             Center = collision.Point + collision.Normal * _radius;
             _circleShape.Center = Center;

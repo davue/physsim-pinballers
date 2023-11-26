@@ -32,8 +32,7 @@ public class FadingVector : DrawableGameComponent
         _start = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         _end = _start + duration;
 
-        _lineTexture = new Texture2D(game.GraphicsDevice, 1, 1);
-        _lineTexture.SetData(new[] { Color.White });
+        _lineTexture = Utils.CreatePointTexture(game.GraphicsDevice);
 
         _destRect = new Rectangle((int)origin.X, (int)origin.Y - LineWidth / 2, (int)(direction.Length() * scale),
             LineWidth);
@@ -46,8 +45,7 @@ public class FadingVector : DrawableGameComponent
         if (currentMillis < _end)
         {
             var alpha = (float)(_end - currentMillis) / _duration;
-            _game.SpriteBatch.Draw(_lineTexture, _destRect, null, Color.Lime, _angle,
-                new Vector2(0, 0.5f), SpriteEffects.None, 0);
+            _game.SpriteBatch.DrawRotating(_lineTexture, _origin, (int)(_direction.Length() * _scale), LineWidth / 2, _angle, Color.Lime);
         }
         else
         {

@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Pinballers.Helpers;
 using Pinballers.Physics;
+using Pinballers.Physics.Shapes;
 
 namespace Pinballers;
 
@@ -61,7 +62,10 @@ public class PinballGame : Game
 
         // Initialize mouse state
         _lastMouseState = Mouse.GetState();
-        
+
+        // Create flipper
+        Components.Add(new Flipper(this, new Vector2(110, 700), 15, 50, (float)(Math.PI / 4), (float) (- Math.PI / 2)));
+
         base.Initialize();
     }
 
