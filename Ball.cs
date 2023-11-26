@@ -25,7 +25,7 @@ public class Ball : DynamicObject
 
         // Initialize Physics
         base.InitPhysics(_circleShape, ObjectType.Dynamic);
-        Restitution = 0.9f;
+        Restitution = 0.7f;
     }
 
     public override void Draw(GameTime gameTime)
@@ -71,6 +71,13 @@ public class Ball : DynamicObject
                 // Set velocity to reflection vector
                 Velocity -= 2 * Vector2.Dot(Velocity, collision.Normal) * collision.Normal;
             }
+            
+            // Apply restitution based on collision normal
+            // var range = 1 - Restitution;
+            // var restitutionVector = new Vector2(1 - range * Math.Abs(Vector2.Dot(collision.Normal, Vector2.UnitX)),
+            //     1 - range * Math.Abs(Vector2.Dot(collision.Normal, Vector2.UnitY)));
+            //
+            // Velocity *= restitutionVector;
             
             // Apply restitution
             Velocity *= Restitution;
