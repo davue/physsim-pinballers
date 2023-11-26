@@ -44,13 +44,13 @@ public class PinballGame : Game
         TargetElapsedTime = new TimeSpan((long)temp);
 
         // Create level walls
-        Components.Add(new Wall(this, new Vector2(10, 10), new Vector2(10, 600), 5));
-        Components.Add(new Wall(this, new Vector2(10, 600), new Vector2(100, 700), 5));
-        Components.Add(new Wall(this, new Vector2(100, 700), new Vector2(100, 790), 5));
+        Components.Add(new Wall(this, new Vector2(10, 10), new Vector2(10, 550), 5));
+        Components.Add(new Wall(this, new Vector2(10, 550), new Vector2(100, 650), 5));
+        Components.Add(new Wall(this, new Vector2(100, 650), new Vector2(100, 790), 5));
         Components.Add(new Wall(this, new Vector2(100, 790), new Vector2(300, 790), 5));
-        Components.Add(new Wall(this, new Vector2(300, 790), new Vector2(300, 700), 5));
-        Components.Add(new Wall(this, new Vector2(300, 700), new Vector2(390, 600), 5));
-        Components.Add(new Wall(this, new Vector2(390, 600), new Vector2(390, 10), 5));
+        Components.Add(new Wall(this, new Vector2(300, 790), new Vector2(300, 650), 5));
+        Components.Add(new Wall(this, new Vector2(300, 650), new Vector2(390, 550), 5));
+        Components.Add(new Wall(this, new Vector2(390, 550), new Vector2(390, 10), 5));
         Components.Add(new Wall(this, new Vector2(10, 10), new Vector2(390, 10), 5));
 
         // Create ball
@@ -64,7 +64,8 @@ public class PinballGame : Game
         _lastMouseState = Mouse.GetState();
 
         // Create flipper
-        Components.Add(new Flipper(this, new Vector2(110, 700), 15, 50, (float)(Math.PI / 4), (float) (- Math.PI / 2)));
+        Components.Add(new Flipper(this, new Vector2(100, 655), 10, 60, (float)(Math.PI / 4), (float)(- Math.PI / 2)));
+        Components.Add(new Flipper(this, new Vector2(300, 655), 10, 60, 3*(float)(Math.PI / 4), (float)(Math.PI / 2)));
 
         base.Initialize();
     }
