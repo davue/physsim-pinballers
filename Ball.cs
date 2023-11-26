@@ -45,16 +45,34 @@ public class Ball : DynamicObject
             // Check for collisions
             var collision = GetCollision(simulatedObject);
             if (collision == null) continue;
+            
+            // Debug drawings
             Game.DebugUtils.AddFadingPoint(collision.Point, 4);
             Game.DebugUtils.AddFadingVector(collision.Point, collision.Normal, 30);
-
-            // Set velocity to reflection vector
-            Velocity -= 2 * Vector2.Dot(Velocity, collision.Normal) * collision.Normal;
-            Velocity *= Restitution;
 
             // Push out ball
             Center = collision.Point + collision.Normal * _radius;
             _circleShape.Center = Center;
+            
+            // Handle collision with anchored objects (like flippers)
+            if (simulatedObject is AnchoredObject anchoredObject)
+            {
+                var originVector = collision.Point - anchoredObject.Center;
+                var surfaceVector = new Vector2(-originVector.Y, originVector.X);
+                var surfaceVelocity = surfaceVector * anchoredObject.CurrentAngularVelocity;
+                var v = Vector2.Dot(Velocity, collision.Normal);
+                var vnew = Vector2.Dot(surfaceVelocity, collision.Normal);
+
+                Velocity += collision.Normal * (vnew - v);
+            }
+            else
+            {
+                // Set velocity to reflection vector
+                Velocity -= 2 * Vector2.Dot(Velocity, collision.Normal) * collision.Normal;
+            }
+            
+            // Apply restitution
+            Velocity *= Restitution;
         }
     }
 }
