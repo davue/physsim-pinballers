@@ -79,6 +79,10 @@ public class Ball : DynamicObject
             //
             // Velocity *= restitutionVector;
             
+            // Add some small normal velocity to fix sticking to slopes
+            // TODO: This is just a hacky fix and we should identify the underlying problem
+            Velocity += collision.Normal*0.04f;
+            
             // Apply restitution
             Velocity *= Restitution;
         }
