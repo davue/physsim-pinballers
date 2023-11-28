@@ -18,7 +18,7 @@ public class PinballGame : Game
 
     // Simulation fields
     public List<SimulatedObject> SimulatedObjects = new();
-    public Vector2 Gravity = new(0, 0.005f);
+    public Vector2 Gravity = new(0, 0.003f);
     private Ball _ball;
     private Flipper _leftFlipper;
     private Flipper _rightFlipper;

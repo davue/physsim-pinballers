@@ -16,7 +16,7 @@ namespace Pinballers.Physics
         private readonly float _restAngle;
         private readonly float _maxRotation;
         private readonly int _sign;
-        private readonly float _angularVelocity = 0.05f;
+        private readonly float _angularVelocity = 0.03f;
 
         private float Rotation = 0;
         public float TouchIdentifier = 0;
