@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Pinballers.Helpers;
 using System;
 
@@ -14,6 +15,9 @@ public class Circle : Shape
         Center = position;
         Radius = radius;
     }
+
+    public override void Draw(SpriteBatch spriteBatch, GameTime gameTime, Color color)
+        => spriteBatch.DrawCentered(TextureHelper.Circle, Center, Radius, color);
 
     public override Collision GetCollision(Shape second)
     {

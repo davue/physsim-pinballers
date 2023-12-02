@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
+using Microsoft.Xna.Framework.Graphics;
+using Pinballers.Helpers;
 
 namespace Pinballers.Physics.Shapes
 {
@@ -10,6 +11,7 @@ namespace Pinballers.Physics.Shapes
         public int Radius { get; }
 
         // Utility getters
+        public float Angle { get; }
         public Vector2 Difference => End - Start;
         public int Length { get; }
         public Vector2 Direction => Difference / Length;
@@ -20,7 +22,11 @@ namespace Pinballers.Physics.Shapes
             End = end;
             Radius = radius;
 
+            Angle = Difference.Angle();
             Length = (int)Difference.Length();
         }
+
+        public override void Draw(SpriteBatch spriteBatch, GameTime gameTime, Color color)
+            => (this as ILine).Draw(spriteBatch, gameTime, color);
     }
 }
