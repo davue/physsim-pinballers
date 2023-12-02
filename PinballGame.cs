@@ -44,6 +44,9 @@ public class PinballGame : Game
         var temp = 1000d / TargetFrameRate * 10000d;
         TargetElapsedTime = new TimeSpan((long)temp);
 
+        // Create textures once globally
+        TextureHelper.InitTextures(GraphicsDevice);
+
         // Create level walls
         Components.Add(new Wall(this, new Vector2(10, 10), new Vector2(10, 550), 5));
         Components.Add(new Wall(this, new Vector2(10, 550), new Vector2(100, 650), 5));
