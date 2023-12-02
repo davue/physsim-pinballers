@@ -3,28 +3,26 @@ using Pinballers.Physics.Shapes;
 
 namespace Pinballers.Physics;
 
-public class SimulatedObject : DrawableGameComponent
+public abstract class SimulatedObject : DrawableGameComponent
 {
-    protected new readonly PinballGame Game;
-    public Shape Shape;
-    public ObjectType Type;
+    protected new PinballGame Game { get; }
+    public abstract Color ObjectColor { get; }
+    protected abstract Shape ObjectShape { get; }
+    public abstract ObjectType Type { get; }
 
-    public virtual void InitPhysics(Shape shape, ObjectType objectType)
-    {
-        Shape = shape;
-        Type = objectType;
-    }
-    
-    public SimulatedObject(PinballGame game) : base(game)
+    protected SimulatedObject(PinballGame game) : base(game)
     {
         Game = game;
         Game.SimulatedObjects.Add(this);
     }
 
+    public sealed override void Draw(GameTime gameTime)
+        => ObjectShape.Draw(Game.SpriteBatch, gameTime, ObjectColor);
+
     public Collision GetCollision(SimulatedObject second)
-    {
-        return Shape.GetCollision(second.Shape);
-    }
+        => ObjectShape.GetCollision(second.ObjectShape);
+
+    public double Mass => ObjectShape.GetMass();
 
     protected override void Dispose(bool disposing)
     {
