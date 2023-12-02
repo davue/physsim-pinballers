@@ -67,7 +67,7 @@ public class Circle : Shape
         if (sign < 0)
         {
             distanceVector.Normalize();
-            return new Collision(distanceVector, closestPoint - distanceVector * line.Radius, distance);
+            return new Collision(- distanceVector, closestPoint - distanceVector * line.Radius, distance);
         }
 
         return null;
