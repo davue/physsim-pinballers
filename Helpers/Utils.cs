@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-namespace Pinballers;
+namespace Pinballers.Helpers;
 
 public class Utils
 {
@@ -49,6 +49,6 @@ public class Utils
     {
         var (sin, cos) = Math.SinCos(theta);
 
-        return new Vector2((float)(r * cos), (float)(r * sin));
+        return new Vector2((float)(r * cos), (float)(-r * sin));
     }
 }
