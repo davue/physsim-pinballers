@@ -5,12 +5,11 @@ using System;
 
 namespace Pinballers.Physics
 {
-    public class AnchoredObject : SimulatedObject
+    public abstract class AnchoredObject<T> : SimulatedShape<T> where T : Shape
     {
         public Vector2 Center { get; }
         public int Length { get; }
         public float CurrentAngularVelocity { get; private set; }
-        public double Mass { get; private set; }
         public float Angle => _restAngle + _sign * Rotation;
         public Vector2 EndPosition => Center + Utils.ToCartesian(Length, Angle);
 
@@ -46,13 +45,7 @@ namespace Pinballers.Physics
             else
                 Rotation = Math.Max(Rotation - rotationChange, 0.0f);
 
-            CurrentAngularVelocity = - _sign * (Rotation - prevRotation) / gameTime.ElapsedGameTime.Milliseconds;
-        }
-
-        public override void InitPhysics(Shape shape, ObjectType objectType)
-        {
-            base.InitPhysics(shape, objectType);
-            Mass = Shape.GetMass();
+            CurrentAngularVelocity = -_sign * (Rotation - prevRotation) / gameTime.ElapsedGameTime.Milliseconds;
         }
     }
 }

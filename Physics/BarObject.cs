@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
+using Pinballers.Physics.Shapes;
 
 namespace Pinballers.Physics
 {
-    public abstract class BarObject : SimulatedObject
+    public abstract class BarObject<T> : SimulatedShape<T> where T : Shape
     {
         public Vector2 Start { get; }
         public Vector2 End { get; }

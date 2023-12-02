@@ -1,43 +1,31 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
 using Pinballers.Helpers;
 using Pinballers.Physics;
 using Pinballers.Physics.Shapes;
+using System;
 
 namespace Pinballers;
 
-public class Ball : DynamicObject
+public class Ball : DynamicObject<Circle>
 {
-    private Circle _circleShape;
-
-    // Ball attributes
-    private int _radius;
-
-    // Stuff for drawing
-    private Texture2D _ballTexture;
+    public override Circle Shape { get; }
+    public override Color ObjectColor => Color.Red;
+    public override ObjectType Type => ObjectType.Dynamic;
 
     public Ball(PinballGame game, Vector2 startPosition, int radius) : base(game, startPosition)
     {
-        _circleShape = new Circle(startPosition, radius);
-        _radius = radius;
-
-        _ballTexture = Utils.CreateCircleTexture(game.GraphicsDevice, 100);
+        Shape = new Circle(startPosition, radius);
 
         // Initialize Physics
-        base.InitPhysics(_circleShape, ObjectType.Dynamic);
         Restitution = 0.7f;
     }
-
-    public override void Draw(GameTime gameTime)
-        => Game.SpriteBatch.DrawCentered(_ballTexture, Center, _radius, Color.Red);
 
     public override void Update(GameTime gameTime)
     {
         // Update gravity
         base.Update(gameTime);
 
-        _circleShape.Center = Center;
+        Shape.Center = Center;
 
         foreach (var simulatedObject in Game.SimulatedObjects)
         {
@@ -47,17 +35,17 @@ public class Ball : DynamicObject
             // Check for collisions
             var collision = GetCollision(simulatedObject);
             if (collision == null) continue;
-            
+
             // Debug drawings
             Game.DebugUtils.AddFadingPoint(collision.Point, 4);
             Game.DebugUtils.AddFadingVector(collision.Point, collision.Normal, 30);
 
             // Push out ball
-            Center = collision.Point + collision.Normal * _radius;
-            _circleShape.Center = Center;
-            
+            Center = collision.Point + collision.Normal * Shape.Radius;
+            Shape.Center = Center;
+
             // Handle collision with anchored objects (like flippers)
-            if (simulatedObject is AnchoredObject anchoredObject)
+            if (simulatedObject is AnchoredObject<Shape> anchoredObject)
             {
                 var originVector = collision.Point - anchoredObject.Center;
                 var surfaceVector = originVector.Perp();
@@ -72,18 +60,18 @@ public class Ball : DynamicObject
                 // Set velocity to reflection vector
                 Velocity -= 2 * Vector2.Dot(Velocity, collision.Normal) * collision.Normal;
             }
-            
+
             // Apply restitution based on collision normal
             // var range = 1 - Restitution;
             // var restitutionVector = new Vector2(1 - range * Math.Abs(Vector2.Dot(collision.Normal, Vector2.UnitX)),
             //     1 - range * Math.Abs(Vector2.Dot(collision.Normal, Vector2.UnitY)));
             //
             // Velocity *= restitutionVector;
-            
+
             // Add some small normal velocity to fix sticking to slopes
             // TODO: This is just a hacky fix and we should identify the underlying problem
-            Velocity += collision.Normal*0.04f;
-            
+            Velocity += collision.Normal * 0.04f;
+
             // Apply restitution
             Velocity *= Restitution;
         }
