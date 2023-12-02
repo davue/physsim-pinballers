@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Pinballers.Helpers;
 using Pinballers.Physics;
 using Pinballers.Physics.Shapes;
 
@@ -59,7 +60,7 @@ public class Ball : DynamicObject
             if (simulatedObject is AnchoredObject anchoredObject)
             {
                 var originVector = collision.Point - anchoredObject.Center;
-                var surfaceVector = new Vector2(-originVector.Y, originVector.X);
+                var surfaceVector = originVector.Perp();
                 var surfaceVelocity = surfaceVector * anchoredObject.CurrentAngularVelocity;
                 var v = Vector2.Dot(Velocity, collision.Normal);
                 var vnew = Vector2.Dot(surfaceVelocity, collision.Normal) + Math.Abs(v);
