@@ -51,10 +51,5 @@ public class Circle : Shape
     }
 
     public override double GetMass()
-    {
-        return Math.PI * Radius * Radius;
-    }
-
-    public override double GetMass()
         => Math.PI * Radius * Radius;
 }
