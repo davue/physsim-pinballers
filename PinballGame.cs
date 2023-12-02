@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Pinballers.Helpers;
@@ -47,12 +47,15 @@ public class PinballGame : Game
         // Create level walls
         Components.Add(new Wall(this, new Vector2(10, 10), new Vector2(10, 550), 5));
         Components.Add(new Wall(this, new Vector2(10, 550), new Vector2(100, 650), 5));
+
         Components.Add(new Wall(this, new Vector2(100, 650), new Vector2(100, 790), 5));
         Components.Add(new Wall(this, new Vector2(100, 790), new Vector2(300, 790), 5));
         Components.Add(new Wall(this, new Vector2(300, 790), new Vector2(300, 650), 5));
         Components.Add(new Wall(this, new Vector2(300, 650), new Vector2(390, 550), 5));
         Components.Add(new Wall(this, new Vector2(390, 550), new Vector2(390, 10), 5));
         Components.Add(new Wall(this, new Vector2(390, 10), new Vector2(10, 10), 5));
+
+        Components.Add(new Boundery(this));
 
         // Add obstacles to the game
         Components.Add(new Obstacle(this, new Vector2(120, 140), new Vector2(160, 180), 5));
