@@ -55,20 +55,20 @@ public class Circle : Shape
 
     private Collision CollideOutOfBounds(Bounds bounds)
     {
-        Line closest = bounds.Lines.MinBy(l => Distance(l));
+        Line line = bounds.Lines.MinBy(l => Distance(l));
 
-        var closestPoint = closest.GetClosestPointTo(Center);
+        var closestPoint = line.GetClosestPointTo(Center);
         var distanceVector = Center - closestPoint;
+        var distance = distanceVector.Length() - line.Radius;
 
-        Vector2 normal = closest.Difference.Perp();
-        Vector2 vec = closestPoint + distanceVector * closest.Radius;
-        float dotProd = Vector2.Dot(vec, normal);
-        float sign = -Math.Sign(dotProd);
+        Vector2 normal = line.Difference.Perp();
+        float sign = -Math.Sign(Vector2.Dot(distanceVector, line.Difference.Perp()));
 
-        //if (sign > 0)
-        //{
-        //    return new Collision(distanceVector, closestPoint,0);
-        //}
+        if (sign < 0)
+        {
+            distanceVector.Normalize();
+            return new Collision(distanceVector, closestPoint - distanceVector * line.Radius, distance);
+        }
 
         return null;
     }

@@ -1,9 +1,9 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Pinballers.Helpers;
 using Pinballers.Physics;
 using Pinballers.Physics.Shapes;
+using System;
 
 namespace Pinballers;
 
@@ -47,7 +47,7 @@ public class Ball : DynamicObject
             // Check for collisions
             var collision = GetCollision(simulatedObject);
             if (collision == null) continue;
-            
+
             // Debug drawings
             Game.DebugUtils.AddFadingPoint(collision.Point, 4);
             Game.DebugUtils.AddFadingVector(collision.Point, collision.Normal, 30);
@@ -55,7 +55,7 @@ public class Ball : DynamicObject
             // Push out ball
             Center = collision.Point + collision.Normal * _radius;
             _circleShape.Center = Center;
-            
+
             // Handle collision with anchored objects (like flippers)
             if (simulatedObject is AnchoredObject anchoredObject)
             {
@@ -72,18 +72,18 @@ public class Ball : DynamicObject
                 // Set velocity to reflection vector
                 Velocity -= 2 * Vector2.Dot(Velocity, collision.Normal) * collision.Normal;
             }
-            
+
             // Apply restitution based on collision normal
             // var range = 1 - Restitution;
             // var restitutionVector = new Vector2(1 - range * Math.Abs(Vector2.Dot(collision.Normal, Vector2.UnitX)),
             //     1 - range * Math.Abs(Vector2.Dot(collision.Normal, Vector2.UnitY)));
             //
             // Velocity *= restitutionVector;
-            
+
             // Add some small normal velocity to fix sticking to slopes
             // TODO: This is just a hacky fix and we should identify the underlying problem
-            Velocity += collision.Normal*0.04f;
-            
+            Velocity += collision.Normal * 0.04f;
+
             // Apply restitution
             Velocity *= Restitution;
         }

@@ -55,7 +55,8 @@ public class PinballGame : Game
         Components.Add(new Wall(this, new Vector2(390, 550), new Vector2(390, 10), 5));
         Components.Add(new Wall(this, new Vector2(390, 10), new Vector2(10, 10), 5));
 
-        Components.Add(new Boundery(this));
+        // Add collider for Out-Of-Bounds. Auto-grabs all walls already in the scene
+        Components.Add(new Boundary(this));
 
         // Add obstacles to the game
         Components.Add(new Obstacle(this, new Vector2(120, 140), new Vector2(160, 180), 5));
