@@ -61,6 +61,7 @@ public class PinballGame : Game
         Components.Add(new Obstacle(this, new Vector2(320, 440), new Vector2(280, 480), 5));
 
         // Create ball
+        Components.Add(new Ball(this, new Vector2(40, 200), 15));
         _ball = new Ball(this, new Vector2(20, 200), 15);
         Components.Add(_ball);
 
