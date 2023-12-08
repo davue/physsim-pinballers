@@ -23,8 +23,8 @@ public class Circle : Shape
     {
         switch (second)
         {
-            case Circle:
-                throw new NotImplementedException();
+            case Circle circle:
+                return CollideWithCircle(circle);
             case Capsule capsule:
                 return CollideWithLine(capsule);
             case Line line:
@@ -54,6 +54,15 @@ public class Circle : Shape
         return null;
     }
 
+    private Collision CollideWithCircle(Circle other) {
+        var distanceVector = Center - other.Center;
+        var distance = distanceVector.Length();
+        if (distance > Radius + other.Radius) return null;
+        
+        distanceVector.Normalize();
+        return new Collision(distanceVector, other.Center + distanceVector * other.Radius, distance);
+    }
+    
     public override double GetMass()
         => Math.PI * Radius * Radius;
 }
