@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Pinballers
+namespace Pinballers.Helpers
 {
     public static class SpriteBatchExtension
     {
@@ -15,7 +15,7 @@ namespace Pinballers
                 center,
                 new Rectangle((int)center.X, (int)center.Y, length, radius * 2),
                 color,
-                angle,
+                -angle,
                 new Vector2(0, radius),
                 1,
                 SpriteEffects.None,

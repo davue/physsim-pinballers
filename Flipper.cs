@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Pinballers.Helpers;
 using Pinballers.Physics;
 using Pinballers.Physics.Shapes;
 
@@ -28,7 +29,7 @@ public class Flipper : AnchoredObject
     {
         Game.SpriteBatch.DrawCentered(_ballTexture, Center, _shape.Radius, Color.Red);
 
-        Game.SpriteBatch.DrawRotating(_rectangleTexture, Center, (int)_shape.Length, _shape.Radius, Angle, Color.Red);
+        Game.SpriteBatch.DrawRotating(_rectangleTexture, Center, _shape.Length, _shape.Radius, Angle, Color.Red);
 
         Game.SpriteBatch.DrawCentered(_ballTexture, EndPosition, _shape.Radius, Color.Red);
     }

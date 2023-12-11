@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Pinballers.Helpers;
 using Pinballers.Physics.Shapes;
 using System;
 
@@ -45,7 +46,7 @@ namespace Pinballers.Physics
             else
                 Rotation = Math.Max(Rotation - rotationChange, 0.0f);
 
-            CurrentAngularVelocity = _sign * (Rotation - prevRotation) / gameTime.ElapsedGameTime.Milliseconds;
+            CurrentAngularVelocity = - _sign * (Rotation - prevRotation) / gameTime.ElapsedGameTime.Milliseconds;
         }
 
         public override void InitPhysics(Shape shape, ObjectType objectType)

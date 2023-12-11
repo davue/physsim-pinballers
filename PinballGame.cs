@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Pinballers.Helpers;
 using Pinballers.Physics;
-using Pinballers.Physics.Shapes;
+using System;
+using System.Collections.Generic;
 
 namespace Pinballers;
 
@@ -73,9 +72,9 @@ public class PinballGame : Game
         _lastMouseState = Mouse.GetState();
 
         // Create flipper
-        _leftFlipper = new Flipper(this, new Vector2(100, 655), 10, 70, (float)(Math.PI / 4), (float)(-Math.PI / 2));
-        _rightFlipper = new Flipper(this, new Vector2(300, 655), 10, 70, 3 * (float)(Math.PI / 4),
-            (float)(Math.PI / 2));
+        _leftFlipper = new Flipper(this, new Vector2(100, 655), 10, 70, -(float)(Math.PI / 4), (float)(Math.PI / 2));
+        _rightFlipper = new Flipper(this, new Vector2(300, 655), 10, 70, 3 * -(float)(Math.PI / 4),
+            (float)(-Math.PI / 2));
         Components.Add(_leftFlipper);
         Components.Add(_rightFlipper);
 

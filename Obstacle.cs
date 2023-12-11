@@ -1,8 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Pinballers.Helpers;
 using Pinballers.Physics;
 using Pinballers.Physics.Shapes;
-using System;
 
 namespace Pinballers;
 
@@ -28,7 +28,7 @@ public class Obstacle : BarObject
         _obstacleEndingTexture = Utils.CreateCircleTexture(GraphicsDevice, 100);
 
         // Calculate angle
-        _angle = (float)Math.Atan2(_capsule.Direction.Y, _capsule.Direction.X);
+        _angle = _capsule.Direction.Angle();
 
         // Initialize physics
         InitPhysics(_capsule, ObjectType.Static);
