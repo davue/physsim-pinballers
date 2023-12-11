@@ -1,18 +1,19 @@
-﻿using Pinballers.Physics.Shapes;
+﻿using Microsoft.Xna.Framework;
+using Pinballers.Physics.Shapes;
 using System.Linq;
 
 namespace Pinballers.Physics
 {
-    public class Boundary : SimulatedObject
+    public class Boundary : SimulatedShape<Bounds>
     {
-        private readonly Bounds _bounds;
+        public override Bounds Shape { get; }
+        public override Color ObjectColor => Color.Transparent;
+        public override ObjectType Type => ObjectType.Static;
 
         public Boundary(PinballGame game) : base(game)
         {
             // Grab the lines of all walls
-            _bounds = new Bounds(game.Components.OfType<Wall>().Select(w => w.Shape).OfType<Line>());
-
-            InitPhysics(_bounds, ObjectType.Static);
+            Shape = new Bounds(game.Components.OfType<Wall>().Select(w => w.Shape).OfType<Line>());
         }
     }
 }
