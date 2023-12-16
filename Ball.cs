@@ -55,6 +55,11 @@ public class Ball : DynamicObject<Circle>
 
                 Velocity += collision.Normal * (vnew - v);
             }
+            else if (simulatedObject is BumperObject<Circle> bumperObject)
+            {
+                Velocity -= 2 * Vector2.Dot(Velocity, collision.Normal) * collision.Normal;
+                Velocity += Velocity.Normalized() * bumperObject.BumpForce;
+            }
             else
             {
                 // Set velocity to reflection vector
