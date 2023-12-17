@@ -16,7 +16,7 @@ public abstract class SimulatedObject : DrawableGameComponent
         Game.SimulatedObjects.Add(this);
     }
 
-    public sealed override void Draw(GameTime gameTime)
+    public override void Draw(GameTime gameTime)
         => ObjectShape.Draw(Game.SpriteBatch, gameTime, ObjectColor);
 
     public Collision GetCollision(SimulatedObject second)
