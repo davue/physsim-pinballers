@@ -18,7 +18,8 @@ public class PinballGame : Game
     // Simulation fields
     public List<SimulatedObject> SimulatedObjects = new();
     public Vector2 Gravity = new(0, 0.003f);
-    private Ball _ball;
+    private Ball _ball1;
+    private Ball _ball2;
     private Flipper _leftFlipper;
     private Flipper _rightFlipper;
 
@@ -62,20 +63,24 @@ public class PinballGame : Game
         Components.Add(new Boundary(this));
 
         // Add obstacles to the game
-        Components.Add(new Obstacle(this, new Vector2(120, 140), new Vector2(160, 180), 5));
-        Components.Add(new Obstacle(this, new Vector2(280, 140), new Vector2(240, 180), 5));
-        Components.Add(new Obstacle(this, new Vector2(80, 440), new Vector2(120, 480), 5));
-        Components.Add(new Obstacle(this, new Vector2(320, 440), new Vector2(280, 480), 5));
+        Components.Add(new Obstacle(this, new Vector2(120, 140), new Vector2(160, 200), 5));
+        Components.Add(new Obstacle(this, new Vector2(280, 140), new Vector2(240, 200), 5));
+        Components.Add(new Obstacle(this, new Vector2(80, 340), new Vector2(120, 400), 5));
+        Components.Add(new Obstacle(this, new Vector2(320, 340), new Vector2(280, 400), 5));
+        // Components.Add(new Obstacle(this, new Vector2(250, 500), new Vector2(320, 560), 5));
+        // Components.Add(new Obstacle(this, new Vector2(150, 500), new Vector2(80, 560), 5));
         
         // Add bumpers
-        Components.Add(new Bumper(this, new Vector2(200, 250), 1f));
-        Components.Add(new Bumper(this, new Vector2(150, 350), 1f));
-        Components.Add(new Bumper(this, new Vector2(250, 350), 1f));
+        Components.Add(new Bumper(this, new Vector2(200, 230), 1f));
+        Components.Add(new Bumper(this, new Vector2(150, 400), 1f));
+        Components.Add(new Bumper(this, new Vector2(250, 400), 1f));
+        // Components.Add(new Bumper(this, new Vector2(200, 560), 1f));
 
         // Create ball
-        Components.Add(new Ball(this, new Vector2(40, 200), 15));
-        _ball = new Ball(this, new Vector2(20, 200), 15);
-        Components.Add(_ball);
+        _ball1 = new Ball(this, new Vector2(20, 200), 15);
+        Components.Add(_ball1);
+        _ball2 = new Ball(this, new Vector2(40, 200), 15);
+        Components.Add(_ball2);
 
         // Initialize Debug Utils
         DebugUtils = new DebugUtils(this);
@@ -110,10 +115,18 @@ public class PinballGame : Game
         var currentMouseState = Mouse.GetState();
         if (_lastMouseState.LeftButton == ButtonState.Released && currentMouseState.LeftButton == ButtonState.Pressed)
         {
-            _ball.Dispose();
-            _ball = new Ball(this, currentMouseState.Position.ToVector2(), 15);
-            Components.Add(_ball);
+            _ball1.Dispose();
+            _ball1 = new Ball(this, currentMouseState.Position.ToVector2(), 15);
+            Components.Add(_ball1);
         }
+
+        if (_lastMouseState.RightButton == ButtonState.Released && currentMouseState.RightButton == ButtonState.Pressed)
+        {
+            _ball2.Dispose();
+            _ball2 = new Ball(this, currentMouseState.Position.ToVector2(), 15);
+            Components.Add(_ball2);
+        }
+        
         _lastMouseState = currentMouseState;
 
         // Flipper controls
