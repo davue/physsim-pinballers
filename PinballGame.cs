@@ -127,6 +127,11 @@ public class PinballGame : Game
             Components.Add(_ball2);
         }
         
+        if (_lastMouseState.MiddleButton == ButtonState.Released && currentMouseState.MiddleButton == ButtonState.Pressed)
+        {
+            Components.Add(new Ball(this, currentMouseState.Position.ToVector2(), 15));
+        }
+        
         _lastMouseState = currentMouseState;
 
         // Flipper controls
