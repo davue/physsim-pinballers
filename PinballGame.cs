@@ -111,20 +111,40 @@ public class PinballGame : Game
             keyboardState.IsKeyDown(Keys.Escape))
             Exit();
 
-        // Create new ball at mouse position on click
+        // Create new ball at mouse position on click, delete ball if clicked directly
         var currentMouseState = Mouse.GetState();
         if (_lastMouseState.LeftButton == ButtonState.Released && currentMouseState.LeftButton == ButtonState.Pressed)
         {
-            _ball1.Dispose();
-            _ball1 = new Ball(this, currentMouseState.Position.ToVector2(), 15);
-            Components.Add(_ball1);
+            float distance = Vector2.Distance(_ball1.Center, currentMouseState.Position.ToVector2());
+
+            if (distance < _ball1.Shape.Radius)
+            {
+                _ball1.Dispose();
+                Components.Remove(_ball1);
+            }
+            else 
+            {
+                _ball1.Dispose();
+                _ball1 = new Ball(this, currentMouseState.Position.ToVector2(), 15);
+                Components.Add(_ball1);
+            }
         }
 
         if (_lastMouseState.RightButton == ButtonState.Released && currentMouseState.RightButton == ButtonState.Pressed)
         {
-            _ball2.Dispose();
-            _ball2 = new Ball(this, currentMouseState.Position.ToVector2(), 15);
-            Components.Add(_ball2);
+            float distance = Vector2.Distance(_ball2.Center, currentMouseState.Position.ToVector2());
+
+            if (distance < _ball1.Shape.Radius)
+            {
+                _ball2.Dispose();
+                Components.Remove(_ball2);
+            }
+            else 
+            {
+                _ball2.Dispose();
+                _ball2 = new Ball(this, currentMouseState.Position.ToVector2(), 15);
+                Components.Add(_ball2);
+            }
         }
         
         if (_lastMouseState.MiddleButton == ButtonState.Released && currentMouseState.MiddleButton == ButtonState.Pressed)
