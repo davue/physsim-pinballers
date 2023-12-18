@@ -26,6 +26,8 @@ public class PinballGame : Game
     // Other
     public DebugUtils DebugUtils;
     private MouseState _lastMouseState;
+    private int _score;
+    private SpriteFont _font;
 
     public PinballGame()
     {
@@ -95,12 +97,16 @@ public class PinballGame : Game
         Components.Add(_leftFlipper);
         Components.Add(_rightFlipper);
 
+        // Initialize score
+        _score = 0; 
+
         base.Initialize();
     }
 
     protected override void LoadContent()
     {
         SpriteBatch = new SpriteBatch(GraphicsDevice);
+        _font = Content.Load<SpriteFont>("Fonts/File");
     }
 
     protected override void Update(GameTime gameTime)
@@ -184,6 +190,16 @@ public class PinballGame : Game
         // Use one SpriteBatch to draw everything
         SpriteBatch.Begin();
         base.Draw(gameTime);
+
+        
+        string score = $"Score: {_score}";
+        SpriteBatch.DrawString(_font, score, new Vector2(10, 750), Color.Black); // Position (10, 10) can be changed as needed
+
         SpriteBatch.End();
+    }
+
+    public void IncrementScore(int amount)
+    {
+        _score += amount;
     }
 }
