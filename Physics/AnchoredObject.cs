@@ -2,6 +2,7 @@
 using Pinballers.Helpers;
 using Pinballers.Physics.Shapes;
 using System;
+using Microsoft.Xna.Framework.Input;
 
 namespace Pinballers.Physics
 {
@@ -40,7 +41,11 @@ namespace Pinballers.Physics
             var prevRotation = Rotation;
             var rotationChange = _angularVelocity * gameTime.ElapsedGameTime.Milliseconds;
 
-            if (TouchIdentifier >= 0)
+            var keyboardState = Keyboard.GetState();
+            if (keyboardState.IsKeyDown(Keys.Space)) {
+                Rotation += rotationChange;
+            }
+            else if (TouchIdentifier >= 0)
                 Rotation = Math.Min(Rotation + rotationChange, _maxRotation);
             else
                 Rotation = Math.Max(Rotation - rotationChange, 0.0f);
