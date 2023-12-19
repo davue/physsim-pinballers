@@ -11,7 +11,7 @@ namespace Pinballers;
 public class PinballGame : Game
 {
     // Framework fields
-    private const int TargetFrameRate = 144;
+    private const int TargetFrameRate = 120;
     private GraphicsDeviceManager _graphics;
     public SpriteBatch SpriteBatch;
 

@@ -22,6 +22,11 @@ public class Ball : DynamicObject<Circle>
 
     public override void Update(GameTime gameTime)
     {
+        if (Center.Y > 760 && Velocity.LengthSquared() < 0.0005f) {
+            Dispose();
+            return;
+        }
+        
         // Update gravity
         base.Update(gameTime);
 

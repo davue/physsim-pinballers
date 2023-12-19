@@ -19,6 +19,6 @@ namespace Pinballers.Helpers
         /// <summary>
         /// Return normalized vector without modifying the original
         /// </summary>
-        public static Vector2 Normalized(this Vector2 v) => v / v.Length();
+        public static Vector2 Normalized(this Vector2 v) => v.LengthSquared() != 0 ? v / v.Length() : Vector2.Zero;
     }
 }
