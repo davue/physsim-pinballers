@@ -26,6 +26,7 @@ public class PinballGame : Game
     // Other
     public DebugUtils DebugUtils;
     private MouseState _lastMouseState;
+    private KeyboardState _lastKeyBoardState;
     private int _score;
     private SpriteFont _font;
 
@@ -89,6 +90,7 @@ public class PinballGame : Game
 
         // Initialize mouse state
         _lastMouseState = Mouse.GetState();
+        _lastKeyBoardState = Keyboard.GetState();
 
         // Create flipper
         _leftFlipper = new Flipper(this, new Vector2(100, 655), 10, 70, -(float)(Math.PI / 4), (float)(Math.PI / 2));
@@ -160,6 +162,10 @@ public class PinballGame : Game
         
         _lastMouseState = currentMouseState;
 
+        if (!_lastKeyBoardState.IsKeyDown(Keys.M) && keyboardState.IsKeyDown(Keys.M)) {
+            Components.Add(new Ball(this, new Vector2(200, 50), 15));
+        }
+        
         // Flipper controls
         if (keyboardState.IsKeyDown(Keys.Left) || keyboardState.IsKeyDown(Keys.A))
         {
@@ -178,6 +184,8 @@ public class PinballGame : Game
             _rightFlipper.TouchIdentifier = -1;
         }
 
+        _lastKeyBoardState = keyboardState;
+        
         // Update everything else
         base.Update(gameTime);
     }
