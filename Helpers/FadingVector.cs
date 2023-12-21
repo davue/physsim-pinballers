@@ -1,51 +1,12 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
+using Pinballers.Physics.Shapes;
 
 namespace Pinballers.Helpers;
 
-public class FadingVector : DrawableGameComponent
+public class FadingVector : DebugObject<Line>
 {
-    private const int LineWidth = 2;
+    public override Line Shape { get; }
 
-    private readonly PinballGame _game;
-    private readonly Vector2 _origin;
-    private readonly Vector2 _direction;
-    private readonly float _scale;
-    private readonly Texture2D _lineTexture;
-    private readonly float _angle;
-
-    private readonly long _start;
-    private readonly int _duration;
-    private readonly long _end;
-
-    public FadingVector(PinballGame game, Vector2 origin, Vector2 direction, float scale, int duration) : base(game)
-    {
-        _game = game;
-        _origin = origin;
-        _direction = direction;
-        _scale = scale;
-
-        _duration = duration;
-        _start = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-        _end = _start + duration;
-
-        _lineTexture = Utils.CreatePointTexture(game.GraphicsDevice);
-
-        _angle = _direction.Angle();
-    }
-
-    public override void Draw(GameTime gameTime)
-    {
-        var currentMillis = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-        if (currentMillis < _end)
-        {
-            var alpha = (float)(_end - currentMillis) / _duration;
-            _game.SpriteBatch.DrawRotating(_lineTexture, _origin, (int)(_direction.Length() * _scale), LineWidth / 2, _angle, Color.Lime);
-        }
-        else
-        {
-            Dispose();
-        }
-    }
+    public FadingVector(PinballGame game, Vector2 origin, Vector2 direction, float scale, int duration) : base(game, duration, Color.Lime, false)
+        => Shape = new Line(origin, origin + direction * scale, 1);
 }
