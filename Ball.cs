@@ -50,7 +50,7 @@ public class Ball : DynamicObject<Circle>
             Shape.Center = Center;
             
             // Handle collision with anchored objects (like flippers)
-            if (simulatedObject is AnchoredObject<Capsule> anchoredObject)
+            if (simulatedObject is IAnchoredObject<Shape> anchoredObject)
             {
                 var originVector = collision.Point - anchoredObject.Center;
                 var surfaceVector = originVector.Perp();

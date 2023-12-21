@@ -5,7 +5,7 @@ using System;
 
 namespace Pinballers.Physics
 {
-    public abstract class AnchoredObject<T> : SimulatedShape<T> where T : Shape
+    public abstract class AnchoredObject<T> : SimulatedShape<T>, IAnchoredObject<T> where T : Shape
     {
         public Vector2 Center { get; }
         public int Length { get; }
