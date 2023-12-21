@@ -10,5 +10,7 @@ namespace Pinballers.Physics
         float CurrentAngularVelocity { get; }
         float Angle { get; }
         Vector2 EndPosition { get; }
+
+        T Shape { get; }
     }
 }
