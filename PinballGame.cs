@@ -165,7 +165,7 @@ public class PinballGame : Game
         if (!_lastKeyBoardState.IsKeyDown(Keys.M) && keyboardState.IsKeyDown(Keys.M)) {
             Components.Add(new Ball(this, new Vector2(200, 50), 15));
         }
-        
+
         // Flipper controls
         if (keyboardState.IsKeyDown(Keys.Left) || keyboardState.IsKeyDown(Keys.A))
         {
@@ -182,6 +182,12 @@ public class PinballGame : Game
         else
         {
             _rightFlipper.TouchIdentifier = -1;
+        }
+
+        if (keyboardState.IsKeyDown(Keys.Space))
+        {
+            _leftFlipper.TouchIdentifier = 0;
+            _rightFlipper.TouchIdentifier = 0;
         }
 
         _lastKeyBoardState = keyboardState;

@@ -2,7 +2,6 @@
 using Pinballers.Helpers;
 using Pinballers.Physics.Shapes;
 using System;
-using Microsoft.Xna.Framework.Input;
 
 namespace Pinballers.Physics
 {
@@ -20,7 +19,7 @@ namespace Pinballers.Physics
         private readonly float _angularVelocity = 0.03f;
 
         private float Rotation = 0;
-        public float TouchIdentifier = 0;
+        public float TouchIdentifier = 1;
 
         public AnchoredObject(
             PinballGame game,
@@ -41,14 +40,16 @@ namespace Pinballers.Physics
             var prevRotation = Rotation;
             var rotationChange = _angularVelocity * gameTime.ElapsedGameTime.Milliseconds;
 
-            var keyboardState = Keyboard.GetState();
-            if (keyboardState.IsKeyDown(Keys.Space)) {
-                Rotation += rotationChange;
-            }
-            else if (TouchIdentifier >= 0)
-                Rotation = Math.Min(Rotation + rotationChange, _maxRotation);
-            else
-                Rotation = Math.Max(Rotation - rotationChange, 0.0f);
+            // -1 go to 0
+            // 0 spin wildly
+            // 1 go to limit
+            Rotation = TouchIdentifier switch
+            {
+                -1 => Rotation = Math.Max(Rotation - rotationChange, 0.0f),
+                0 => Rotation + rotationChange,
+                1 => Math.Min(Rotation + rotationChange, _maxRotation),
+                _ => throw new InvalidOperationException($"Illegal {nameof(AnchoredObject<T>)}<{typeof(T).Name}>.{nameof(TouchIdentifier)}: {TouchIdentifier}")
+            };
 
             CurrentAngularVelocity = -_sign * (Rotation - prevRotation) / gameTime.ElapsedGameTime.Milliseconds;
         }
