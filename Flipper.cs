@@ -10,6 +10,9 @@ public class Flipper : AnchoredObject<Capsule>
     public override Color ObjectColor => Color.Red;
     public override ObjectType Type => ObjectType.Anchored;
 
+    public override float TouchIdentifier { get; set; } = 1;
+    protected override float AngularVelocity => 0.03f;
+
     public Flipper(PinballGame game, Vector2 startPosition, int radius, int length, float restAngle, float maxRotation) : base(game, startPosition, length, restAngle, maxRotation)
         => Shape = new Capsule(startPosition, EndPosition, radius);
 

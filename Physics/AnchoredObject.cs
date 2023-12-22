@@ -12,14 +12,15 @@ namespace Pinballers.Physics
         public float CurrentAngularVelocity { get; private set; }
         public float Angle => _restAngle + _sign * Rotation;
         public Vector2 EndPosition => Center + Utils.ToCartesian(Length, Angle);
+        public abstract float TouchIdentifier { get; set; }
+
+        protected abstract float AngularVelocity { get; }
 
         private readonly float _restAngle;
         private readonly float _maxRotation;
         private readonly int _sign;
-        private readonly float _angularVelocity = 0.03f;
 
         private float Rotation = 0;
-        public float TouchIdentifier = 1;
 
         public AnchoredObject(
             PinballGame game,
@@ -38,7 +39,7 @@ namespace Pinballers.Physics
         public override void Update(GameTime gameTime)
         {
             var prevRotation = Rotation;
-            var rotationChange = _angularVelocity * gameTime.ElapsedGameTime.Milliseconds;
+            var rotationChange = AngularVelocity * gameTime.ElapsedGameTime.Milliseconds;
 
             // -1 go to 0
             // 0 spin wildly
