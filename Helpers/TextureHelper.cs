@@ -3,7 +3,7 @@
 namespace Pinballers.Helpers
 {
     /// <summary>
-    /// Stores texture instead of reconstructing the some ones every time
+    /// Stores textures instead of reconstructing the some ones every time
     /// </summary>
     public static class TextureHelper
     {
