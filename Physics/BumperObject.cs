@@ -4,6 +4,9 @@ using System;
 
 namespace Pinballers.Physics;
 
+/// <summary>
+/// <typeparamref name="T"/> that pushes colliding objects away with <see cref="BumpForce"/>
+/// </summary>
 public abstract class BumperObject<T> : SimulatedShape<T> where T : Shape
 {
     public long Start { get; private set; }

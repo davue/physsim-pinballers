@@ -11,14 +11,10 @@ public class Ball : DynamicObject<Circle>
     public override Circle Shape { get; }
     public override Color ObjectColor => Color.Red;
     public override ObjectType Type => ObjectType.Dynamic;
+    public override float Restitution => 0.7f;
 
     public Ball(PinballGame game, Vector2 startPosition, int radius) : base(game, startPosition)
-    {
-        Shape = new Circle(startPosition, radius);
-
-        // Initialize Physics
-        Restitution = 0.7f;
-    }
+        => Shape = new Circle(startPosition, radius);
 
     public override void Update(GameTime gameTime)
     {

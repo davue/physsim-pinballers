@@ -9,12 +9,8 @@ public abstract class Shape
     public abstract void Draw(SpriteBatch spriteBatch, GameTime gameTime, Color color);
 
     public virtual Collision GetCollision(Shape second)
-    {
-        throw new NotImplementedException();
-    }
+        => throw new NotImplementedException();
 
     public virtual double GetMass()
-    {
-        throw new NotImplementedException();
-    }
+        => throw new NotImplementedException();
 }
