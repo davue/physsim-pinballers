@@ -1,12 +1,12 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Pinballers.Physics.Shapes;
+using System;
 
 namespace Pinballers.Physics;
 
 public abstract class BumperObject<T> : SimulatedShape<T> where T : Shape
 {
-    public long Start;
+    public long Start { get; private set; }
     public Vector2 Center { get; }
     public float BumpForce { get; }
 
@@ -15,9 +15,7 @@ public abstract class BumperObject<T> : SimulatedShape<T> where T : Shape
         BumpForce = bumpForce;
         Center = center;
     }
-    
+
     public void Bump()
-    {
-        Start = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-    }
+        => Start = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 }

@@ -7,17 +7,17 @@ namespace Pinballers;
 
 public class Bumper : BumperObject<Circle>
 {
-    public Color CurrentColor = Color.CornflowerBlue;
-    public override Color ObjectColor => Color.CornflowerBlue;
+    public override Color ObjectColor => _currentColor;
     public override ObjectType Type => ObjectType.Static;
     public override Circle Shape { get; }
-    private bool _scoreIncremented;
+
+    private bool _scoreIncremented = false;
+    private Color _currentColor = Color.CornflowerBlue;
+
+    private readonly Color _restingColor = Color.CornflowerBlue;
 
     public Bumper(PinballGame game, Vector2 center, float bumpForce) : base(game, center, bumpForce)
-    {
-        Shape = new Circle(center, 15);
-        _scoreIncremented = false;
-    }
+        => Shape = new Circle(center, 15);
 
     public override void Update(GameTime gameTime)
     {
@@ -25,7 +25,7 @@ public class Bumper : BumperObject<Circle>
         if (delta <= 200)
         {
             var frac = delta / 200f;
-            CurrentColor = Color.Lerp(ObjectColor, Color.Black, 1f - frac);
+            _currentColor = Color.Lerp(_restingColor, Color.Black, 1f - frac);
 
             // Only increment the score once
             if (!_scoreIncremented)
@@ -42,7 +42,4 @@ public class Bumper : BumperObject<Circle>
 
         base.Update(gameTime);
     }
-
-    public override void Draw(GameTime gameTime)
-        => Shape.Draw(Game.SpriteBatch, gameTime, CurrentColor);
 }
