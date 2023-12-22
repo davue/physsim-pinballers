@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using Pinballers.Physics;
 using Pinballers.Physics.Shapes;
 
-namespace Pinballers;
+namespace Pinballers.Participants;
 
 public class Obstacle : BarObject<Capsule>
 {

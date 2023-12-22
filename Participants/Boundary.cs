@@ -1,8 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
+using Pinballers.Physics;
 using Pinballers.Physics.Shapes;
 using System.Linq;
 
-namespace Pinballers.Physics
+namespace Pinballers.Participants
 {
     public class Boundary : SimulatedShape<Bounds>
     {

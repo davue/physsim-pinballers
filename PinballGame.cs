@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Pinballers.Helpers;
+using Pinballers.Participants;
 using Pinballers.Physics;
 using Pinballers.Physics.Shapes;
 using System;

@@ -2,7 +2,7 @@
 using Pinballers.Physics;
 using Pinballers.Physics.Shapes;
 
-namespace Pinballers
+namespace Pinballers.Participants
 {
     public class Spinner : AnchoredObject<Cross>
     {

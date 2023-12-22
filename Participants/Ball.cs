@@ -4,7 +4,7 @@ using Pinballers.Physics;
 using Pinballers.Physics.Shapes;
 using System;
 
-namespace Pinballers;
+namespace Pinballers.Participants;
 
 public class Ball : DynamicObject<Circle>
 {
@@ -22,11 +22,12 @@ public class Ball : DynamicObject<Circle>
 
     public override void Update(GameTime gameTime)
     {
-        if (Center.Y > 760 && Velocity.LengthSquared() < 0.0005f) {
+        if (Center.Y > 760 && Velocity.LengthSquared() < 0.0005f)
+        {
             Dispose();
             return;
         }
-        
+
         // Update gravity
         base.Update(gameTime);
 
@@ -48,7 +49,7 @@ public class Ball : DynamicObject<Circle>
             // Push out ball
             Center = collision.Point + collision.Normal * Shape.Radius;
             Shape.Center = Center;
-            
+
             // Handle collision with anchored objects (like flippers)
             if (simulatedObject is IAnchoredObject<Shape> anchoredObject)
             {
@@ -82,7 +83,7 @@ public class Ball : DynamicObject<Circle>
             // Add some small normal velocity to fix sticking to slopes
             // TODO: This is just a hacky fix and we should identify the underlying problem
             Velocity += collision.Normal * 0.04f;
-            
+
             // Apply restitution
             Velocity *= Restitution;
         }
