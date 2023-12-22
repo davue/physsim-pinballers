@@ -72,7 +72,7 @@ public class PinballGame : Game
         Components.Add(new Obstacle(this, new Vector2(320, 340), new Vector2(280, 400), 5));
         // Components.Add(new Obstacle(this, new Vector2(250, 500), new Vector2(320, 560), 5));
         // Components.Add(new Obstacle(this, new Vector2(150, 500), new Vector2(80, 560), 5));
-        
+
         // Add bumpers
         Components.Add(new Bumper(this, new Vector2(200, 230), 1f));
         Components.Add(new Bumper(this, new Vector2(150, 400), 1f));
@@ -104,7 +104,7 @@ public class PinballGame : Game
         Components.Add(_rightFlipper);
 
         // Initialize score
-        _score = 0; 
+        _score = 0;
 
         base.Initialize();
     }
@@ -117,6 +117,10 @@ public class PinballGame : Game
 
     protected override void Update(GameTime gameTime)
     {
+        // only if focused
+        if (!IsActive)
+            return;
+
         // Close game on escape
         var keyboardState = Keyboard.GetState();
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
@@ -134,7 +138,7 @@ public class PinballGame : Game
                 _ball1.Dispose();
                 Components.Remove(_ball1);
             }
-            else 
+            else
             {
                 _ball1.Dispose();
                 _ball1 = new Ball(this, currentMouseState.Position.ToVector2(), 15);
@@ -151,19 +155,19 @@ public class PinballGame : Game
                 _ball2.Dispose();
                 Components.Remove(_ball2);
             }
-            else 
+            else
             {
                 _ball2.Dispose();
                 _ball2 = new Ball(this, currentMouseState.Position.ToVector2(), 15);
                 Components.Add(_ball2);
             }
         }
-        
+
         if (_lastMouseState.MiddleButton == ButtonState.Released && currentMouseState.MiddleButton == ButtonState.Pressed)
         {
             Components.Add(new Ball(this, currentMouseState.Position.ToVector2(), 15));
         }
-        
+
         _lastMouseState = currentMouseState;
 
         if (!_lastKeyBoardState.IsKeyDown(Keys.M) && keyboardState.IsKeyDown(Keys.M))
@@ -196,7 +200,7 @@ public class PinballGame : Game
         }
 
         _lastKeyBoardState = keyboardState;
-        
+
         // Update everything else
         base.Update(gameTime);
     }
@@ -210,7 +214,7 @@ public class PinballGame : Game
         SpriteBatch.Begin();
         base.Draw(gameTime);
 
-        
+
         string score = $"Score: {_score}";
         SpriteBatch.DrawString(_font, score, new Vector2(10, 750), Color.Black); // Position (10, 10) can be changed as needed
 
