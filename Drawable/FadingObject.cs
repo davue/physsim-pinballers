@@ -4,6 +4,8 @@ using System;
 
 namespace Pinballers.Drawable;
 
+/// <inheritdoc cref="DrawableShape{T}"/>
+/// <remarks>Disapears after <see cref="Duration"/>, potentially with fading Alpha</remarks>
 public abstract class FadingObject<T> : DrawableShape<T> where T : Shape
 {
     public sealed override Color ObjectColor => new Color(_color, Alpha);

@@ -4,7 +4,7 @@ using System;
 
 namespace Pinballers.Helpers;
 
-public class Utils
+    public static class Utils
 {
     // Copied from https://stackoverflow.com/questions/2519304/draw-simple-circle-in-xna
     public static Texture2D CreateCircleTexture(GraphicsDevice graphicsDevice, int dia)
@@ -21,6 +21,7 @@ public class Utils
             {
                 int index = x * dia + y;
                 Vector2 pos = new Vector2(x - r, y - r);
+
                 if (pos.LengthSquared() <= rSqr)
                 {
                     colorData[index] = Color.White;
