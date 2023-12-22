@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Pinballers.Physics.Shapes;
 
-namespace Pinballers.Helpers;
+namespace Pinballers.Drawable;
 
-public class FadingPoint : DebugObject<Circle>
+public class FadingPoint : FadingObject<Circle>
 {
     public override Circle Shape { get; }
 

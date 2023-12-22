@@ -1,11 +1,10 @@
 using Microsoft.Xna.Framework;
-using Pinballers.Drawable;
 using Pinballers.Physics.Shapes;
 using System;
 
-namespace Pinballers.Helpers;
+namespace Pinballers.Drawable;
 
-public abstract class DebugObject<T> : DrawableShape<T> where T : Shape
+public abstract class FadingObject<T> : DrawableShape<T> where T : Shape
 {
     public sealed override Color ObjectColor => new Color(_color, Alpha);
 
@@ -20,9 +19,9 @@ public abstract class DebugObject<T> : DrawableShape<T> where T : Shape
     private readonly Color _color;
     private readonly bool _decay;
 
-    public DebugObject(PinballGame game, int duration, Color color) : this(game, duration, color, true) { }
+    public FadingObject(PinballGame game, int duration, Color color) : this(game, duration, color, true) { }
 
-    public DebugObject(PinballGame game, int duration, Color color, bool decay) : base(game)
+    public FadingObject(PinballGame game, int duration, Color color, bool decay) : base(game)
     {
         Duration = duration;
         Start = Time;

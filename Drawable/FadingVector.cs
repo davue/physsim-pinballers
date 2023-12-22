@@ -1,9 +1,9 @@
 using Microsoft.Xna.Framework;
 using Pinballers.Physics.Shapes;
 
-namespace Pinballers.Helpers;
+namespace Pinballers.Drawable;
 
-public class FadingVector : DebugObject<Line>
+public class FadingVector : FadingObject<Line>
 {
     public override Line Shape { get; }
 
