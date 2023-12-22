@@ -2,6 +2,9 @@
 
 namespace Pinballers.Helpers
 {
+    /// <summary>
+    /// Stores texture instead of reconstructing the some ones every time
+    /// </summary>
     public static class TextureHelper
     {
         public static void InitTextures(GraphicsDevice graphicsDevice)

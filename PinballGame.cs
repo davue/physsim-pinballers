@@ -53,42 +53,40 @@ public class PinballGame : Game
         TextureHelper.InitTextures(GraphicsDevice);
 
         // Create level walls
-        Components.Add(new Wall(this, new Vector2(10, 10), new Vector2(10, 550), 5));
-        Components.Add(new Wall(this, new Vector2(10, 550), new Vector2(100, 650), 5));
+        new Wall(this, new Vector2(10, 10), new Vector2(10, 550), 5);
+        new Wall(this, new Vector2(10, 550), new Vector2(100, 650), 5);
 
-        Components.Add(new Wall(this, new Vector2(100, 650), new Vector2(100, 790), 5));
-        Components.Add(new Wall(this, new Vector2(100, 790), new Vector2(300, 790), 5));
-        Components.Add(new Wall(this, new Vector2(300, 790), new Vector2(300, 650), 5));
-        Components.Add(new Wall(this, new Vector2(300, 650), new Vector2(390, 550), 5));
-        Components.Add(new Wall(this, new Vector2(390, 550), new Vector2(390, 10), 5));
-        Components.Add(new Wall(this, new Vector2(390, 10), new Vector2(10, 10), 5));
+        new Wall(this, new Vector2(100, 650), new Vector2(100, 790), 5);
+        new Wall(this, new Vector2(100, 790), new Vector2(300, 790), 5);
+        new Wall(this, new Vector2(300, 790), new Vector2(300, 650), 5);
+        new Wall(this, new Vector2(300, 650), new Vector2(390, 550), 5);
+        new Wall(this, new Vector2(390, 550), new Vector2(390, 10), 5);
+        new Wall(this, new Vector2(390, 10), new Vector2(10, 10), 5);
 
         // Add collider for Out-Of-Bounds. Auto-grabs all walls already in the scene
-        Components.Add(new Boundary(this));
+        new Boundary(this);
 
         // Add obstacles to the game
-        Components.Add(new Obstacle(this, new Vector2(120, 140), new Vector2(160, 200), 5));
-        Components.Add(new Obstacle(this, new Vector2(280, 140), new Vector2(240, 200), 5));
-        Components.Add(new Obstacle(this, new Vector2(80, 340), new Vector2(120, 400), 5));
-        Components.Add(new Obstacle(this, new Vector2(320, 340), new Vector2(280, 400), 5));
-        // Components.Add(new Obstacle(this, new Vector2(250, 500), new Vector2(320, 560), 5));
-        // Components.Add(new Obstacle(this, new Vector2(150, 500), new Vector2(80, 560), 5));
+        new Obstacle(this, new Vector2(120, 140), new Vector2(160, 200), 5);
+        new Obstacle(this, new Vector2(280, 140), new Vector2(240, 200), 5);
+        new Obstacle(this, new Vector2(80, 340), new Vector2(120, 400), 5);
+        new Obstacle(this, new Vector2(320, 340), new Vector2(280, 400), 5);
+        // new Obstacle(this, new Vector2(250, 500), new Vector2(320, 560), 5);
+        // new Obstacle(this, new Vector2(150, 500), new Vector2(80, 560), 5);
 
         // Add bumpers
-        Components.Add(new Bumper(this, new Vector2(200, 230), 1f));
-        Components.Add(new Bumper(this, new Vector2(150, 400), 1f));
-        Components.Add(new Bumper(this, new Vector2(250, 400), 1f));
-        // Components.Add(new Bumper(this, new Vector2(200, 560), 1f));
+        new Bumper(this, new Vector2(200, 230), 1f);
+        new Bumper(this, new Vector2(150, 400), 1f);
+        new Bumper(this, new Vector2(250, 400), 1f);
+        // new Bumper(this, new Vector2(200, 560), 1f);
 
         // Add Spinners
-        Components.Add(new Spinner(this, new Vector2(125, 525), 5, 50, (float)(Math.PI / 4), -1));
-        Components.Add(new Spinner(this, new Vector2(275, 525), 5, 50, (float)(Math.PI / 4), 1));
+        new Spinner(this, new Vector2(125, 525), 5, 50, (float)(Math.PI / 4), -1);
+        new Spinner(this, new Vector2(275, 525), 5, 50, (float)(Math.PI / 4), 1);
 
         // Create ball
         _ball1 = new Ball(this, new Vector2(20, 200), 15);
-        Components.Add(_ball1);
         _ball2 = new Ball(this, new Vector2(40, 200), 15);
-        Components.Add(_ball2);
 
         // Initialize Debug Utils
         DebugUtils = new DebugUtils(this);
@@ -101,8 +99,6 @@ public class PinballGame : Game
         _leftFlipper = new Flipper(this, new Vector2(100, 655), 10, 70, -(float)(Math.PI / 4), (float)(Math.PI / 2));
         _rightFlipper = new Flipper(this, new Vector2(300, 655), 10, 70, 3 * -(float)(Math.PI / 4),
             (float)(-Math.PI / 2));
-        Components.Add(_leftFlipper);
-        Components.Add(_rightFlipper);
 
         // Initialize score
         _score = 0;
@@ -137,13 +133,11 @@ public class PinballGame : Game
             if (distance < _ball1.Shape.Radius)
             {
                 _ball1.Dispose();
-                Components.Remove(_ball1);
             }
             else
             {
                 _ball1.Dispose();
                 _ball1 = new Ball(this, currentMouseState.Position.ToVector2(), 15);
-                Components.Add(_ball1);
             }
         }
 
@@ -154,26 +148,24 @@ public class PinballGame : Game
             if (distance < _ball1.Shape.Radius)
             {
                 _ball2.Dispose();
-                Components.Remove(_ball2);
             }
             else
             {
                 _ball2.Dispose();
                 _ball2 = new Ball(this, currentMouseState.Position.ToVector2(), 15);
-                Components.Add(_ball2);
             }
         }
 
         if (_lastMouseState.MiddleButton == ButtonState.Released && currentMouseState.MiddleButton == ButtonState.Pressed)
         {
-            Components.Add(new Ball(this, currentMouseState.Position.ToVector2(), 15));
+            new Ball(this, currentMouseState.Position.ToVector2(), 15);
         }
 
         _lastMouseState = currentMouseState;
 
         if (!_lastKeyBoardState.IsKeyDown(Keys.M) && keyboardState.IsKeyDown(Keys.M))
         {
-            Components.Add(new Ball(this, new Vector2(200, 50), 15));
+            new Ball(this, new Vector2(200, 50), 15);
         }
 
         // Flipper controls

@@ -13,7 +13,7 @@ namespace Pinballers.Physics
         public Boundary(PinballGame game) : base(game)
         {
             // Grab the lines of all walls
-            Shape = new Bounds(game.Components.OfType<Wall>().Select(w => w.Shape).OfType<Line>());
+            Shape = new Bounds(game.SimulatedObjects.OfType<Wall>().Select(w => w.Shape).OfType<Line>());
         }
     }
 }

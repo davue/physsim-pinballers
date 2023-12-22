@@ -10,7 +10,10 @@ namespace Pinballers.Drawable
         public abstract T Shape { get; }
 
         protected DrawableShape(PinballGame game) : base(game)
-            => Game = game;
+        {
+            Game = game;
+            Game.Components.Add(this);
+        }
 
         public override void Draw(GameTime gameTime)
             => Shape.Draw(Game.SpriteBatch, gameTime, ObjectColor);
