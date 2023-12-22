@@ -38,6 +38,8 @@ public class Circle : Shape
                 return new Collision(sign * collision.Normal, collision.Point, collision.Distance);
             case Bounds bounds:
                 return CollideOutOfBounds(bounds);
+            case Cross cross:
+                return CollideWithCross(cross);
         }
 
         return null;
@@ -71,7 +73,45 @@ public class Circle : Shape
         if (sign < 0)
         {
             distanceVector.Normalize();
-            return new Collision(- distanceVector, closestPoint - distanceVector * line.Radius, distance);
+            return new Collision(-distanceVector, closestPoint - distanceVector * line.Radius, distance);
+        }
+
+        return null;
+    }
+
+    private Vector2 GetClosestPointTo(Cross cross)
+    {
+        float t1 = Vector2.Dot(Center - cross.West, cross.Direction) / cross.Span;
+        t1 = Math.Clamp(t1, 0, 1);
+        Vector2 p1 = cross.West + 2 * t1 * cross.Difference;
+        Vector2 diff1 = Center - p1;
+        float d1 = diff1.LengthSquared();
+
+        float t2 = Vector2.Dot(Center - cross.North, cross.Direction.Perp()) / cross.Span;
+        t2 = Math.Clamp(t2, 0, 1);
+        Vector2 p2 = cross.North + 2 * t2 * cross.Difference.Perp();
+        Vector2 diff2 = Center - p2;
+        float d2 = diff2.LengthSquared();
+
+        if (d1 < d2)
+            return p1;
+
+        return p2;
+    }
+
+    private Collision CollideWithCross(Cross cross)
+    {
+        // Early out if not even in range
+        if ((Center - cross.Center).Length() > Radius + cross.Radius + cross.Length)
+            return null;
+
+        var closestPoint = GetClosestPointTo(cross);
+        var distanceVector = Center - closestPoint;
+        var distance = distanceVector.Length() - cross.Radius;
+        if (distance < Radius)
+        {
+            distanceVector.Normalize();
+            return new Collision(distanceVector, closestPoint + distanceVector * cross.Radius, distance);
         }
 
         return null;
@@ -84,15 +124,16 @@ public class Circle : Shape
         return distanceVector.Length();
     }
 
-    private Collision CollideWithCircle(Circle other) {
+    private Collision CollideWithCircle(Circle other)
+    {
         var distanceVector = Center - other.Center;
         var distance = distanceVector.Length();
         if (distance > Radius + other.Radius) return null;
-        
+
         distanceVector.Normalize();
         return new Collision(distanceVector, other.Center + distanceVector * other.Radius, distance);
     }
-    
+
     public override double GetMass()
         => Math.PI * Radius * Radius;
 }
