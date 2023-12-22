@@ -31,5 +31,5 @@ public class Capsule : Shape, ILine
         => (this as ILine).Draw(spriteBatch, gameTime, color);
 
     public override double GetMass()
-        => Math.PI * Radius * Radius + Radius * Length;
+        => Math.PI * Radius * Radius + 2 * Radius * Length;
 }
