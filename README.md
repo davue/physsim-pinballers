@@ -3,6 +3,10 @@ This is the project repository of Group 20 of the ETH lecture: Physically-Based 
 
 [Motivational video](https://www.youtube.com/watch?v=NhVUCsXp-Uo)
 
+## Files for final hand-in
+- [Presentation](https://github.com/davue/physsim-pinballers/blob/Final/Docs/group20_final_presentation.pdf)
+- [Demo Video](https://github.com/davue/physsim-pinballers/blob/Final/Docs/group20_demo.mp4)
+
 ## Installation
 To build the project you need the [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6.0). Then you should be able to build it using `dotnet build` or directly run it using `dotnet run`.
 
