@@ -4,6 +4,8 @@ using System;
 
 namespace Pinballers.Physics.Shapes;
 
+public readonly record struct Collision(Vector2 Normal, Vector2 Point, float Distance);
+
 public abstract class Shape
 {
     public abstract void Draw(SpriteBatch spriteBatch, GameTime gameTime, Color color);
