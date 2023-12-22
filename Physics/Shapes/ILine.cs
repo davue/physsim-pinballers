@@ -9,9 +9,9 @@ namespace Pinballers.Physics.Shapes
     {
         Vector2 Start { get; }
         Vector2 End { get; }
-        public int Radius { get; }
+        int Radius { get; }
 
-        public float Angle { get; }
+        float Angle { get; }
         Vector2 Difference { get; }
         int Length { get; }
         Vector2 Direction { get; }

@@ -14,7 +14,7 @@ public class PinballGame : Game
 {
     // Framework fields
     private const int TargetFrameRate = 120;
-    private GraphicsDeviceManager _graphics;
+    private readonly GraphicsDeviceManager _graphics;
     public SpriteBatch SpriteBatch;
 
     // Simulation fields
