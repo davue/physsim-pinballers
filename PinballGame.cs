@@ -79,6 +79,10 @@ public class PinballGame : Game
         Components.Add(new Bumper(this, new Vector2(250, 400), 1f));
         // Components.Add(new Bumper(this, new Vector2(200, 560), 1f));
 
+        // Add Spinners
+        Components.Add(new Spinner(this, new Vector2(125, 525), 5, 50, (float)(Math.PI / 4), -1));
+        Components.Add(new Spinner(this, new Vector2(275, 525), 5, 50, (float)(Math.PI / 4), 1));
+
         // Create ball
         _ball1 = new Ball(this, new Vector2(20, 200), 15);
         Components.Add(_ball1);
@@ -162,7 +166,8 @@ public class PinballGame : Game
         
         _lastMouseState = currentMouseState;
 
-        if (!_lastKeyBoardState.IsKeyDown(Keys.M) && keyboardState.IsKeyDown(Keys.M)) {
+        if (!_lastKeyBoardState.IsKeyDown(Keys.M) && keyboardState.IsKeyDown(Keys.M))
+        {
             Components.Add(new Ball(this, new Vector2(200, 50), 15));
         }
 
