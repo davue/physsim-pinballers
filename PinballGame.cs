@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Pinballers.Helpers;
 using Pinballers.Physics;
+using Pinballers.Physics.Shapes;
 using System;
 using System.Collections.Generic;
 
@@ -16,7 +17,7 @@ public class PinballGame : Game
     public SpriteBatch SpriteBatch;
 
     // Simulation fields
-    public List<SimulatedObject> SimulatedObjects = new();
+    public List<ISimulatedShape<Shape>> SimulatedObjects = new();
     public Vector2 Gravity = new(0, 0.003f);
     private Ball _ball1;
     private Ball _ball2;

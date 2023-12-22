@@ -1,7 +1,7 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Pinballers.Physics;
 using Pinballers.Physics.Shapes;
+using System;
 
 namespace Pinballers;
 
@@ -44,5 +44,5 @@ public class Bumper : BumperObject<Circle>
     }
 
     public override void Draw(GameTime gameTime)
-        => ObjectShape.Draw(Game.SpriteBatch, gameTime, CurrentColor);
+        => Shape.Draw(Game.SpriteBatch, gameTime, CurrentColor);
 }
