@@ -5,6 +5,9 @@ using System;
 
 namespace Pinballers.Physics
 {
+    /// <summary>
+    /// Spinning <typeparamref name="T"/> that's fixed at <see cref="Center"/>
+    /// </summary>
     public abstract class AnchoredObject<T> : SimulatedShape<T>, IAnchoredObject<T> where T : Shape
     {
         public Vector2 Center { get; }

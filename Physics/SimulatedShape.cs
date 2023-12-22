@@ -3,6 +3,9 @@ using Pinballers.Physics.Shapes;
 
 namespace Pinballers.Physics
 {
+    /// <summary>
+    /// Drawn <typeparamref name="T"/> that participates in the physics simulation
+    /// </summary>
     public abstract class SimulatedShape<T> : DrawableShape<T>, ISimulatedShape<T> where T : Shape
     {
         public abstract ObjectType Type { get; }

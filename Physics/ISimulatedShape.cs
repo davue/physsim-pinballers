@@ -3,9 +3,7 @@ using Pinballers.Physics.Shapes;
 
 namespace Pinballers.Physics
 {
-    /// <summary>
-    /// This interface is here to have covariance.
-    /// </summary>
+    /// <inheritdoc cref="SimulatedShape{T}"/>
     /// <remarks><c>S is T</c> means <c>ISimulatedShape&lt;S&gt; is ISimulatedShape&lt;T&gt;</c></remarks>
     public interface ISimulatedShape<out T> : IDrawableShape<T> where T : Shape
     {

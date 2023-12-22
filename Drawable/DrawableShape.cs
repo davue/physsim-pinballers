@@ -3,6 +3,10 @@ using Pinballers.Physics.Shapes;
 
 namespace Pinballers.Drawable
 {
+    /// <summary>
+    /// Drawn <typeparamref name="T"/> that doesn't participate in the physics simulation
+    /// </summary>
+    /// <remarks>Constructor auto-adds to game</remarks>
     public abstract class DrawableShape<T> : DrawableGameComponent, IDrawableShape<T> where T : Shape
     {
         protected new PinballGame Game { get; }

@@ -3,9 +3,7 @@ using Pinballers.Physics.Shapes;
 
 namespace Pinballers.Physics
 {
-    /// <summary>
-    /// This interface is here to have covariance.
-    /// </summary>
+    /// <inheritdoc cref="AnchoredObject{T}"/>
     /// <remarks><c>S is T</c> means <c>IAnchoredObject&lt;S&gt; is IAnchoredObject&lt;T&gt;</c></remarks>
     public interface IAnchoredObject<out T> : ISimulatedShape<T> where T : Shape
     {
