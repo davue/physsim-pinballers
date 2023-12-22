@@ -1,12 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
+using Pinballers.Drawable;
 
 namespace Pinballers.Helpers;
 
-public class DebugUtils : DrawableGameComponent
+public class DebugUtils
 {
     private readonly PinballGame _game;
 
-    public DebugUtils(PinballGame game) : base(game)
+    public DebugUtils(PinballGame game)
         => _game = game;
 
     public void AddFadingPoint(Vector2 pos, int radius)
